@@ -1,0 +1,25 @@
+{
+  "name": "cmi_core",
+  "version": "0.0.0",
+  "homepage": "https://github.com/SGC-Tlaxcala/cmi_core",
+  "authors": [
+    "Javier Sanchez Toledano <js.toledano@me.com>"
+  ],
+  "description": "Paquetes del CMI frontend",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "cmi",
+    "sgc",
+    "iso",
+    "9001:2015"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
