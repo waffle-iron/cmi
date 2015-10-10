@@ -53,6 +53,13 @@ module.exports = function(grunt) {
           module: true
         }
       }
+    },
+
+    // :task: watch
+    // :package: grunt-contrib-watch
+    watch: {
+        files: ['<%= jshint.files %>'],
+        tasks: ['jshint', 'qunit']
     }
 
   });
@@ -62,6 +69,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // La(s) tarea(s) por default.
   grunt.registerTask('default', ['concat', 'uglify']);
