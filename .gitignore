@@ -2,6 +2,7 @@
 bower_components/
 node_modules/
 assets/
+sources/tmp/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
