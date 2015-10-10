@@ -30,6 +30,12 @@ module.exports = function(grunt) {
           'assets/js/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
         }
       }
+    },
+
+    // :task: qunit
+    // :package: grunt-contrib-qunit
+    qunit: {
+        files: ['sources/test/**/*.html']
     }
 
   });
@@ -37,6 +43,7 @@ module.exports = function(grunt) {
   // Carga los plugins que nos proporcionan las tareas.
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
 
   // La(s) tarea(s) por default.
   grunt.registerTask('default', ['concat', 'uglify']);
