@@ -1,1 +1,1 @@
-console.log("Este archivo está de mas")
+console.log("Este archivo está de mas");
