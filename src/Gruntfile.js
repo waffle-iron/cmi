@@ -19,15 +19,19 @@ module.exports = function(grunt) {
       }
     },
 
+    // :task: uglify
+    // :package: grunt-contrib-uglify
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd/mmm/yyyy") %> */\n'
       },
       build: {
-        src: 'sources/tmp/js/<%= pkg.name %>.js',
-        dest: 'assets/js/<%= pkg.name %>.min.js'
+        files: {
+          'assets/js/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+        }
       }
     }
+
   });
 
   // Carga los plugins que nos proporcionan las tareas.
