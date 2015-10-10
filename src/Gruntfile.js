@@ -15,7 +15,7 @@ module.exports = function(grunt) {
         // los archivos a unir
         src: ['sources/js/*.js'],
         // la ubicacion de la salida concatenada
-        dest: 'assets/js/<%= pkg.name %>.js'
+        dest: 'sources/tmp/js/<%= pkg.name %>.js'
       }
     },
 
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd/mmm/yyyy") %> */\n'
       },
       build: {
-        src: 'sources/<%= pkg.name %>.js',
+        src: 'sources/tmp/js/<%= pkg.name %>.js',
         dest: 'assets/<%= pkg.name %>.min.js'
       }
     }
