@@ -35,6 +35,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
   // La(s) tarea(s) por default.
-  grunt.registerTask('default', ['uglify']);
+  grunt.registerTask('default', ['concat', 'uglify']);
 
 };
