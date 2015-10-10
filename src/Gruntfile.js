@@ -30,7 +30,8 @@ module.exports = function(grunt) {
     }
   });
 
-  // Carga el plugin que nos proporciona la tarea "uglify".
+  // Carga los plugins que nos proporcionan las tareas.
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
   // La(s) tarea(s) por default.
