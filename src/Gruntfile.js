@@ -9,7 +9,7 @@ module.exports = function(grunt) {
     concat: {
       options: {
         // define una cadena de texto que se coloca entre cada archivo unido
-        separator: ';'
+        separator: ' '
       },
       dist: {
         // los archivos a unir
@@ -36,6 +36,23 @@ module.exports = function(grunt) {
     // :package: grunt-contrib-qunit
     qunit: {
         files: ['sources/test/**/*.html']
+    },
+
+    // :task: jshint
+    // :package: grunt-contrib-jshint
+    jshint: {
+      // se define que archivos se van a limpiar
+      files: ['gruntfile.js', 'sources/**/*.js'],
+      // se configura JSHint (tal como se indica en http://www.jshint.com/docs/)
+      options: {
+          // aqui van las opciones, si los valores por
+          // omisión no son suficientes
+        globals: {
+          jQuery: true,
+          console: true,
+          module: true
+        }
+      }
     }
 
   });
@@ -44,6 +61,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-qunit');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
   // La(s) tarea(s) por default.
   grunt.registerTask('default', ['concat', 'uglify']);
