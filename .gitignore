@@ -1,5 +1,7 @@
 # Toledano
 bower_components/
+node_modules/
+assets/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
