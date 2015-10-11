@@ -45,8 +45,8 @@ module.exports = function(grunt) {
       files: ['gruntfile.js', 'sources/**/*.js'],
       // se configura JSHint (tal como se indica en http://www.jshint.com/docs/)
       options: {
-          // aqui van las opciones, si los valores por
-          // omisión no son suficientes
+        // aqui van las opciones, si los valores por
+        // omisión no son suficientes
         globals: {
           jQuery: true,
           console: true,
