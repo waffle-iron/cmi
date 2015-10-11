@@ -23,6 +23,7 @@
     "grunt-contrib-uglify": "^0.9.2",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-lib-phantomjs": "^0.7.1",
+    "grunt-twbs": "0.0.5",
     "jshint": "^2.8.0",
     "qunitjs": "^1.19.0"
   }
