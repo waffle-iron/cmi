@@ -60,7 +60,18 @@ module.exports = function(grunt) {
     watch: {
         files: ['<%= jshint.files %>'],
         tasks: ['jshint', 'qunit']
-    }
+    },
+
+    // :task: twbs
+    // :package: grunt-twbs
+    twbs: {
+        target:{
+            options: {
+                less: './sources/less/',
+                dest: 'assets/css/<%= pkg.name %>.min.css'
+            }
+        }
+      }
 
   });
 
@@ -70,6 +81,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-twbs');
 
   // La(s) tarea(s) por default.
   grunt.registerTask('default', ['concat', 'uglify', 'jshint', 'qunit']);
