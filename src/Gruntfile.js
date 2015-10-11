@@ -68,7 +68,8 @@ module.exports = function(grunt) {
         target:{
             options: {
                 less: './sources/less/',
-                dest: 'assets/css/<%= pkg.name %>.min.css'
+                dest: 'assets/css/<%= pkg.name %>.min.css',
+                cmd: 'dist'
             }
         }
       }
