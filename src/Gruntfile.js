@@ -72,9 +72,14 @@ module.exports = function(grunt) {
                 cmd: 'dist'
             }
         }
-      }
+    },
+
+    // :task: sync
+    // :package: grunt-sync
+    
 
   });
+
 
   // Carga los plugins que nos proporcionan las tareas.
   grunt.loadNpmTasks('grunt-contrib-concat');
