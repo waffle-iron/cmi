@@ -72,9 +72,27 @@ module.exports = function(grunt) {
                 cmd: 'dist'
             }
         }
-      }
+    },
+
+    // :task: sync
+    // :package: grunt-sync
+    sync: {
+        bootstrap: {
+            files: [{
+                cwd: './bower_components/bootstrap/dist',
+                src: [
+                    'js/*',
+                    'fonts/*'
+                ],
+                dest: './assets/'
+            }],
+            // pretend: true,
+            verbose: true
+        }
+    }
 
   });
+
 
   // Carga los plugins que nos proporcionan las tareas.
   grunt.loadNpmTasks('grunt-contrib-concat');
@@ -83,6 +101,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-twbs');
+  grunt.loadNpmTasks('grunt-sync');
 
   // La(s) tarea(s) por default.
   grunt.registerTask('default', ['concat', 'uglify', 'jshint', 'qunit']);
