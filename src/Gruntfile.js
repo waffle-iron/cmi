@@ -55,20 +55,13 @@ module.exports = function(grunt) {
       }
     },
 
-    // :task: watch
-    // :package: grunt-contrib-watch
-    watch: {
-        files: ['<%= jshint.files %>'],
-        tasks: ['jshint', 'qunit']
-    },
-
     // :task: twbs
     // :package: grunt-twbs
     twbs: {
         target:{
             options: {
                 less: './sources/less/',
-                dest: 'assets/css/<%= pkg.name %>.min.css',
+                dest: './assets/css/<%= pkg.name %>.min.css',
                 cmd: 'dist'
             }
         }
@@ -89,9 +82,20 @@ module.exports = function(grunt) {
             // pretend: true,
             verbose: true
         }
+    },
+
+    // :task: watch
+    // :package: grunt-contrib-watch
+    watch: {
+      files: ['<%= twbs.target.options.less %>/*.less', '<%= jshint.files %>'],
+      tasks: ['twbs', 'sync'],
+      options: {
+        livereload: true
+      }
     }
 
   });
+
 
 
   // Carga los plugins que nos proporcionan las tareas.
@@ -104,6 +108,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-sync');
 
   // La(s) tarea(s) por default.
-  grunt.registerTask('default', ['concat', 'uglify', 'jshint', 'qunit']);
+  grunt.registerTask('default', ['sync', 'concat', 'uglify', 'jshint']);
 
 };
