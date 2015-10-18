@@ -25,6 +25,7 @@
     "grunt-lib-phantomjs": "^0.7.1",
     "grunt-sync": "^0.4.1",
     "grunt-twbs": "0.0.5",
+    "gulp": "^3.9.0",
     "jshint": "^2.8.0",
     "qunitjs": "^1.19.0"
   }
