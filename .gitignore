@@ -4,6 +4,7 @@ node_modules/
 assets/
 sources/tmp/
 data/
+.idea/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
