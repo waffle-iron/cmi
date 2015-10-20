@@ -19,14 +19,20 @@ class Pipol(AbstractBaseUser):
     Incluye la posibilidad de incluir otras entidades y poder filtrar
     de acuerdo con ello.
     '''
+    TLAXCALA = 29
     ENTIDADES = (
-        (29, 'Tlaxcala'),
+        (TLAXCALA, 'Tlaxcala'),
     )
+
+    JL = 0
+    JD01 = 1
+    JD02 = 2
+    JD03 = 3
     SITIOS = (
-        (0, 'Junta Local'),
-        (1, '01 Junta Distrital'),
-        (2, '02 Junta Distrital'),
-        (3, 'O3 Junta Distrital')
+        (JL, 'Junta Local'),
+        (JD01, '01 Junta Distrital'),
+        (JD02, '02 Junta Distrital'),
+        (JD03, 'O3 Junta Distrital')
     )
 
     VEL = 'VEL'
