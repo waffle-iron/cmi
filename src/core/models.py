@@ -73,6 +73,7 @@ class Pipol(AbstractBaseUser):
     nombre = models.CharField(max_length=40, blank=True)
     paterno = models.CharField(max_length=40, blank=True)
     materno = models.CharField(max_length=40, blank=True)
+    rfc = models.CharField(max_length=13, blank=True)
 
     is_admin = models.BooleanField(default=False)
 
