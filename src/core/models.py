@@ -6,10 +6,37 @@
 #  __author__: Javier Sanchez Toledano
 #       fecha: oct 19, 2015
 
+from __future__ import unicode_literals
 from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
-from __future__ import unicode_literals
 from django.utils.encoding import python_2_unicode_compatible
+from django.contrib.auth.models import BaseUserManager
+
+
+class PipolManager(BaseUserManager):
+    def create_user(self, email, password=None, **kwargs):
+        if not email:
+            raise ValueError('Users must have a valid email address.')
+
+        if not kwargs.get('username'):
+            raise ValueError('Users must have a valid username.')
+
+        account = self.model(
+            email=self.normalize_email(email), username=kwargs.get('username')
+        )
+
+        account.set_password(password)
+        account.save()
+
+        return account
+
+    def create_superuser(self, email, password, **kwargs):
+        account = self.create_user(email, password, **kwargs)
+
+        account.is_admin = True
+        account.save()
+
+        return account
 
 
 @python_2_unicode_compatible
