@@ -10,20 +10,73 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
 
 
-class Account(AbstractBaseUser):
+class Pipol(AbstractBaseUser):
+    '''
+    Clase para gestionar los usuarios del cuadro de mando integral.
+    Incluye la posibilidad de incluir otras entidades y poder filtrar
+    de acuerdo con ello.
+    '''
+    ENTIDADES = (
+        (29, 'Tlaxcala'),
+    )
+    SITIOS = (
+        (0, 'Junta Local'),
+        (1, '01 Junta Distrital'),
+        (2, '02 Junta Distrital'),
+        (3, 'O3 Junta Distrital')
+    )
+
+    VEL = 'VEL'
+    VSL = 'VSL'
+    VRL = 'VRL'
+    VOL = 'VOL'
+    VCL = 'VCL'
+    VED = 'VED'
+    VSD = 'VSD'
+    VRD = 'VRD'
+    VOD = 'VOD'
+    VCD = 'VCD'
+    JMM = 'JMM'
+    JOSA = 'JOSA'
+    JOCE = 'JOCE'
+    RA = 'RA'
+
+    PUESTOS = (
+        (VEL, 'Vocal Ejecutivo de Junta Local'),
+        (VSL, 'Vocal Secretario de Junta Local'),
+        (VRL, 'Vocal del RFE de Junta Local'),
+        (VCL, 'Vocal de Capacitación de Junta Local'),
+        (VOL, 'Vocal de Organización de Junta Local'),
+        (VED, 'Vocal Ejecutivo de Junta Distrital'),
+        (VSD, 'Vocal Secretario de Junta Distrital'),
+        (VRD, 'Vocal del RFE de Junta Distrital'),
+        (VCD, 'Vocal de Capacitación de Junta Distrital'),
+        (VOD, 'Vocal de Organización de Junta Distrital'),
+        (JOSA, 'JOSA'),
+        (JMM, 'Jefe de Monitoreo a Módulos'),
+        (JOCE, 'Jefe de Cartografía'),
+        (RA, 'Rama Administrativa')
+    )
+
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=40, unique=True)
 
-    first_name = models.CharField(max_length=40, blank=True)
-    last_name = models.CharField(max_length=40, blank=True)
-    tagline = models.CharField(max_length=140, blank=True)
+    nombre = models.CharField(max_length=40, blank=True)
+    paterno = models.CharField(max_length=40, blank=True)
+    materno = models.CharField(max_length=40, blank=True)
 
     is_admin = models.BooleanField(default=False)
+
+    entidad = models.PositiveSmallIntegerField(default=29, choices=ENTIDADES)
+    sitio = models.PositiveSmallIntegerField(choices=SITIOS, blank=True, null=True)
+    puesto = models.CharField(max_length=4, choices=PUESTOS, blank=True, null=True)
+    is_mspe = models.BooleanField(default=False)
+    is_activo = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = AccountManager()
+    objects = PipolManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -31,14 +84,10 @@ class Account(AbstractBaseUser):
     def __unicode__(self):
         return self.email
 
-    def __str__(self):
-        return self.email
-
     def get_full_name(self):
-        return ' '.join([self.first_name, self.last_name])
+        return ' '.join([self.nombre, self.paterno, self.materno])
 
     def get_short_name(self):
-        return self.first_name
-
+        return self.nombre
 
 
