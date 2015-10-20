@@ -16,10 +16,10 @@ from django.contrib.auth.models import BaseUserManager
 class PipolManager(BaseUserManager):
     def create_user(self, email, password=None, **kwargs):
         if not email:
-            raise ValueError('Users must have a valid email address.')
+            raise ValueError('Debe ser una dirección de correo válida.')
 
         if not kwargs.get('username'):
-            raise ValueError('Users must have a valid username.')
+            raise ValueError('Debe ser un nombre de usuario válido.')
 
         account = self.model(
             email=self.normalize_email(email), username=kwargs.get('username')
