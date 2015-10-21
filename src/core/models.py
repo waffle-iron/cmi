@@ -21,22 +21,19 @@ class PipolManager(BaseUserManager):
         if not kwargs.get('username'):
             raise ValueError('Debe ser un nombre de usuario válido.')
 
-        account = self.model(
+        pipol = self.model(
             email=self.normalize_email(email), username=kwargs.get('username')
         )
+        pipol.set_password(password)
+        pipol.save()
 
-        account.set_password(password)
-        account.save()
-
-        return account
+        return pipol
 
     def create_superuser(self, email, password, **kwargs):
-        account = self.create_user(email, password, **kwargs)
-
-        account.is_admin = True
-        account.save()
-
-        return account
+        pipol = self.create_user(email, password, **kwargs)
+        pipol.is_admin = True
+        pipol.save()
+        return pipol
 
 
 @python_2_unicode_compatible
