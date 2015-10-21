@@ -38,11 +38,11 @@ class PipolManager(BaseUserManager):
 
 @python_2_unicode_compatible
 class Pipol(AbstractBaseUser):
-    '''
+    """
     Clase para gestionar los usuarios del cuadro de mando integral.
     Incluye la posibilidad de incluir otras entidades y poder filtrar
     de acuerdo con ello.
-    '''
+    """
     TLAXCALA = 29
     ENTIDADES = (
         (TLAXCALA, 'Tlaxcala'),
@@ -123,5 +123,3 @@ class Pipol(AbstractBaseUser):
 
     def get_short_name(self):
         return self.nombre
-
-
