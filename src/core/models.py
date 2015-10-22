@@ -7,108 +7,146 @@
 #       fecha: oct 19, 2015
 
 from __future__ import unicode_literals
-from django.contrib.auth.models import AbstractBaseUser
+from django.utils.translation import gettext as _
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
-from django.contrib.auth.models import BaseUserManager
+from django.core import validators
+from django.utils import six, timezone
+
+
+TLAXCALA = 29
+ENTIDADES = (
+    (TLAXCALA, 'Tlaxcala'),
+)
+
+JL = 0
+JD01 = 1
+JD02 = 2
+JD03 = 3
+SITIOS = (
+    (JL, 'Junta Local'),
+    (JD01, '01 Junta Distrital'),
+    (JD02, '02 Junta Distrital'),
+    (JD03, 'O3 Junta Distrital')
+)
+
+VEL = 'VEL'
+VSL = 'VSL'
+VRL = 'VRL'
+VOL = 'VOL'
+VCL = 'VCL'
+VED = 'VED'
+VSD = 'VSD'
+VRD = 'VRD'
+VOD = 'VOD'
+VCD = 'VCD'
+JMM = 'JMM'
+JOSA = 'JOSA'
+JOCE = 'JOCE'
+RA = 'RA'
+
+PUESTOS = (
+    (VEL, 'Vocal Ejecutivo de Junta Local'),
+    (VSL, 'Vocal Secretario de Junta Local'),
+    (VRL, 'Vocal del RFE de Junta Local'),
+    (VCL, 'Vocal de Capacitación de Junta Local'),
+    (VOL, 'Vocal de Organización de Junta Local'),
+    (VED, 'Vocal Ejecutivo de Junta Distrital'),
+    (VSD, 'Vocal Secretario de Junta Distrital'),
+    (VRD, 'Vocal del RFE de Junta Distrital'),
+    (VCD, 'Vocal de Capacitación de Junta Distrital'),
+    (VOD, 'Vocal de Organización de Junta Distrital'),
+    (JOSA, 'JOSA'),
+    (JMM, 'Jefe de Monitoreo a Módulos'),
+    (JOCE, 'Jefe de Cartografía'),
+    (RA, 'Rama Administrativa')
+)
 
 
 class PipolManager(BaseUserManager):
-    def create_user(self, email, password=None, **kwargs):
-        if not email:
-            raise ValueError('Debe ser una dirección de correo válida.')
+    use_in_migrations = True
 
-        if not kwargs.get('username'):
-            raise ValueError('Debe ser un nombre de usuario válido.')
+    def _create_user(self, username, email, password, **extra_fields):
+        """
+        Creates and saves a User with the given username, email and password.
+        """
+        if not username:
+            raise ValueError('The given username must be set')
+        email = self.normalize_email(email)
+        user = self.model(username=username, email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
 
-        pipol = self.model(
-            email=self.normalize_email(email), username=kwargs.get('username')
-        )
-        pipol.set_password(password)
-        pipol.save()
+    def create_user(self, username, email=None, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        return self._create_user(username, email, password, **extra_fields)
 
-        return pipol
+    def create_superuser(self, username, email, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
 
-    def create_superuser(self, email, password, **kwargs):
-        pipol = self.create_user(email, password, **kwargs)
-        pipol.is_admin = True
-        pipol.save()
-        return pipol
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+
+        return self._create_user(username, email, password, **extra_fields)
 
 
 @python_2_unicode_compatible
-class Pipol(AbstractBaseUser):
+class Pipol(AbstractBaseUser, PermissionsMixin):
     """
     Clase para gestionar los usuarios del cuadro de mando integral.
     Incluye la posibilidad de incluir otras entidades y poder filtrar
     de acuerdo con ello.
     """
-    TLAXCALA = 29
-    ENTIDADES = (
-        (TLAXCALA, 'Tlaxcala'),
-    )
-
-    JL = 0
-    JD01 = 1
-    JD02 = 2
-    JD03 = 3
-    SITIOS = (
-        (JL, 'Junta Local'),
-        (JD01, '01 Junta Distrital'),
-        (JD02, '02 Junta Distrital'),
-        (JD03, 'O3 Junta Distrital')
-    )
-
-    VEL = 'VEL'
-    VSL = 'VSL'
-    VRL = 'VRL'
-    VOL = 'VOL'
-    VCL = 'VCL'
-    VED = 'VED'
-    VSD = 'VSD'
-    VRD = 'VRD'
-    VOD = 'VOD'
-    VCD = 'VCD'
-    JMM = 'JMM'
-    JOSA = 'JOSA'
-    JOCE = 'JOCE'
-    RA = 'RA'
-
-    PUESTOS = (
-        (VEL, 'Vocal Ejecutivo de Junta Local'),
-        (VSL, 'Vocal Secretario de Junta Local'),
-        (VRL, 'Vocal del RFE de Junta Local'),
-        (VCL, 'Vocal de Capacitación de Junta Local'),
-        (VOL, 'Vocal de Organización de Junta Local'),
-        (VED, 'Vocal Ejecutivo de Junta Distrital'),
-        (VSD, 'Vocal Secretario de Junta Distrital'),
-        (VRD, 'Vocal del RFE de Junta Distrital'),
-        (VCD, 'Vocal de Capacitación de Junta Distrital'),
-        (VOD, 'Vocal de Organización de Junta Distrital'),
-        (JOSA, 'JOSA'),
-        (JMM, 'Jefe de Monitoreo a Módulos'),
-        (JOCE, 'Jefe de Cartografía'),
-        (RA, 'Rama Administrativa')
-    )
-
     email = models.EmailField(unique=True)
-    username = models.CharField(max_length=40, unique=True)
+    username = models.CharField(
+        _('username'),
+        max_length=30,
+        unique=True,
+        help_text=_('Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only.'),
+        validators=[
+            validators.RegexValidator(
+                r'^[\w.@+-]+$',
+                _('Enter a valid username. This value may contain only '
+                  'letters, numbers ' 'and @/./+/-/_ characters.')
+            ),
+        ],
+        error_messages={
+            'unique': _("A user with that username already exists."),
+        },
+    )
 
-    nombre = models.CharField(max_length=40, blank=True)
-    paterno = models.CharField(max_length=40, blank=True)
-    materno = models.CharField(max_length=40, blank=True)
+    first_name = models.CharField(max_length=70, blank=True)
+    last_name = models.CharField(max_length=70, blank=True)
     rfc = models.CharField(max_length=13, blank=True)
 
-    is_admin = models.BooleanField(default=False)
-
-    entidad = models.PositiveSmallIntegerField(default=TLAXCALA, choices=ENTIDADES)
+    entidad = models.PositiveSmallIntegerField(default=29, choices=ENTIDADES)
     sitio = models.PositiveSmallIntegerField(
         choices=SITIOS, blank=True, null=True
     )
     puesto = models.CharField(
         max_length=4, choices=PUESTOS, blank=True, null=True
     )
-    is_activo = models.BooleanField(default=True)
+
+    is_staff = models.BooleanField(
+        _('staff status'),
+        default=False,
+        help_text=_('Designates whether the user can log into this admin site.'),
+    )
+    is_active = models.BooleanField(
+        _('active'),
+        default=True,
+        help_text=_(
+            'Designates whether this user should be treated as active. '
+            'Unselect this instead of deleting accounts.'
+        ),
+    )
+    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -122,18 +160,16 @@ class Pipol(AbstractBaseUser):
         return self.email
 
     def get_full_name(self):
-        return ' '.join([self.nombre, self.paterno, self.materno])
+        return ' '.join([self.first_name, self.last_name])
 
     def get_short_name(self):
         return self.nombre
 
-    @property
-    def is_superuser(self):
-        return self.is_admin
-
-    @property
-    def is_staff(self):
-        return self.is_admin
+    def email_user(self, subject, message, from_email=None, **kwargs):
+        """
+        Sends an email to this User.
+        """
+        send_mail(subject, message, from_email, [self.email], **kwargs)
 
     @property
     def is_mspe(self):
@@ -141,9 +177,3 @@ class Pipol(AbstractBaseUser):
             return False
         else:
             return True
-
-    def has_perm(self, perm, obj=None):
-        return self.is_admin
-
-    def has_module_perms(self, app_label):
-        return self.is_admin
