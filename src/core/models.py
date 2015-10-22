@@ -102,8 +102,12 @@ class Pipol(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
 
     entidad = models.PositiveSmallIntegerField(default=29, choices=ENTIDADES)
-    sitio = models.PositiveSmallIntegerField(choices=SITIOS, blank=True, null=True)
-    puesto = models.CharField(max_length=4, choices=PUESTOS, blank=True, null=True)
+    sitio = models.PositiveSmallIntegerField(
+        choices=SITIOS, blank=True, null=True
+    )
+    puesto = models.CharField(
+        max_length=4, choices=PUESTOS, blank=True, null=True
+    )
     is_mspe = models.BooleanField(default=False)
     is_activo = models.BooleanField(default=True)
 
