@@ -103,7 +103,10 @@ class Pipol(AbstractBaseUser, PermissionsMixin):
     Incluye la posibilidad de incluir otras entidades y poder filtrar
     de acuerdo con ello.
     """
-    email = models.EmailField(unique=True)
+    email = models.EmailField(
+        _('email'), unique=True,
+        help_text='Escriba un correo electrónico',
+    )
     username = models.CharField(
         _('username'),
         max_length=30,
