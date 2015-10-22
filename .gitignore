@@ -2,7 +2,7 @@
 bower_components/
 node_modules/
 assets/
-sources/tmp/
+src/sources/tmp/*
 data/
 .idea/
 
