@@ -123,7 +123,9 @@ class Pipol(AbstractBaseUser, PermissionsMixin):
 
     first_name = models.CharField(max_length=70, blank=True)
     last_name = models.CharField(max_length=70, blank=True)
-    rfc = models.CharField(max_length=13, blank=True)
+    rfc = models.CharField('RFC', max_length=13, blank=True,
+        help_text='Escriba el RFC del usuario'
+    )
 
     entidad = models.PositiveSmallIntegerField(default=29, choices=ENTIDADES)
     sitio = models.PositiveSmallIntegerField(
