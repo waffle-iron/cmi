@@ -1,0 +1,38 @@
+{
+  "name": "cmi",
+  "version": "2.0.0",
+  "homepage": "https://github.com/SGC-Tlaxcala/cmi_core",
+  "authors": [
+    "Javier Sanchez Toledano <js.toledano@me.com>"
+  ],
+  "description": "Núcleo del Cuadro de Mando Integral 2.0",
+  "main": "",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "django",
+    "angularjs",
+    "postgresql",
+    "npm",
+    "bootstrap"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap": "~3.3.5",
+    "angular": "~1.4.7",
+    "angular-route": "~1.4.7",
+    "angular-cookies": "~1.4.7",
+    "bootstrap-material-design": "~0.3.0",
+    "jquery": "~2.1.4",
+    "ng-dialog": "ngDialog#~0.5.5",
+    "underscore": "~1.8.3"
+  }
+}
