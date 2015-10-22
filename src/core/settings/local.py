@@ -25,3 +25,4 @@ DATABASES = {
 }
 
 SECRET_KEY = 'kg[:{L[Rm >zT+~e-&;JR?Us,tN~-@c9wPXyS}Y)JfZo[W>Kr8-[y|5~O^,j4p&T'
+
