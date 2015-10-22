@@ -101,14 +101,13 @@ class Pipol(AbstractBaseUser):
 
     is_admin = models.BooleanField(default=False)
 
-    entidad = models.PositiveSmallIntegerField(default=29, choices=ENTIDADES)
+    entidad = models.PositiveSmallIntegerField(default=TLAXCALA, choices=ENTIDADES)
     sitio = models.PositiveSmallIntegerField(
         choices=SITIOS, blank=True, null=True
     )
     puesto = models.CharField(
         max_length=4, choices=PUESTOS, blank=True, null=True
     )
-    is_mspe = models.BooleanField(default=False)
     is_activo = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -135,6 +134,13 @@ class Pipol(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
+
+    @property
+    def is_mspe(self):
+        if puesto == RA:
+            return False
+        else:
+            return True
 
     def has_perm(self, perm, obj=None):
         return self.is_admin
