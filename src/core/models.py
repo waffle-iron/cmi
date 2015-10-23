@@ -8,11 +8,14 @@
 
 from __future__ import unicode_literals
 from django.utils.translation import gettext as _
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import (
+    AbstractBaseUser, PermissionsMixin, BaseUserManager
+)
+from django.core.mail import send_mail
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.core import validators
-from django.utils import six, timezone
+from django.utils import timezone
 
 
 TLAXCALA = 29
@@ -111,7 +114,10 @@ class Pipol(AbstractBaseUser, PermissionsMixin):
         _('username'),
         max_length=30,
         unique=True,
-        help_text=_('Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only.'),
+        help_text=_('''
+            Required. 30 characters or fewer. Letters, digits and
+            @/./+/-/_ only.
+        '''),
         validators=[
             validators.RegexValidator(
                 r'^[\w.@+-]+$',
@@ -124,13 +130,17 @@ class Pipol(AbstractBaseUser, PermissionsMixin):
         },
     )
 
-    first_name = models.CharField(max_length=70, blank=True)
+    first_name = models.CharField(
+        _('Nombre'),
+        max_length=70, blank=True
+    )
     last_name = models.CharField(max_length=70, blank=True)
-    rfc = models.CharField('RFC', max_length=13, blank=True,
+    rfc = models.CharField(
+        'RFC', max_length=13, blank=True,
         help_text='Escriba el RFC del usuario'
     )
 
-    entidad = models.PositiveSmallIntegerField(default=29, choices=ENTIDADES)
+    entidad = models.PositiveSmallIntegerField(default=TLAXCALA, choices=ENTIDADES)
     sitio = models.PositiveSmallIntegerField(
         choices=SITIOS, blank=True, null=True
     )
@@ -178,7 +188,7 @@ class Pipol(AbstractBaseUser, PermissionsMixin):
 
     @property
     def is_mspe(self):
-        if puesto == RA:
+        if self.puesto == RA:
             return False
         else:
             return True
