@@ -199,6 +199,58 @@ class PipolManager(BaseUserManager):
 
 Ya sé que estoy repitiendo, pero el proceso me ayudó a comprender como funciona.
 
+## Administración de usuarios
 
+Con respecto a la administración, la cosa se me complicó un poco al principio, porque al crear el usuario no aparecía el campo `email`, pero al usar `fieldset` se solucionó.
+
+```python
+class PipolCreateForm(UserCreationForm):
+    email = forms.EmailField(
+        label='Correo Electrónico',
+        help_text='Escriba un correo electrónico',
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(PipolCreateForm, self).__init__(*args, **kwargs)
+        self.fields['email'].required = True
+
+    def save(self, commit=True):
+        pipol = super(PipolCreateForm, self).save(commit=False)
+        pipol.email = self.cleaned_data['email']
+        if commit:
+            pipol.save()
+        return pipol
+
+    class Meta:
+        model = get_user_model()
+        fields = ('email', 'username',)
+```
+
+Primero me aseguro que se incluya el correo electrónico con el tipo de campo adecuado y luego, al inicializar el formulario, marco a `email` como requerido. 
+
+```python
+class PipolAdmin(UserAdmin):
+    add_form = PipolCreateForm
+    add_fieldsets = (
+        (None, {'fields': [('email', 'username', 'password1', 'password2')],
+                'classes': ('wide', ),
+                }),
+    )
+
+    form = PipolChangeForm
+    fieldsets = (
+        (None, {'fields': [('email', 'username', 'password')]}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name', 'rfc')}),
+        (_('INE'), {'fields': ('entidad', 'sitio', 'puesto', )}),
+        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+    )
+```
+
+Al crear la clase para administrar el modelo, además de los campos que se mostrarán, en `fieldset`, indico la clase que se usará para agregar usuarios (en `add_form`) y los campos que deben incluirse con `add_fieldset`.
+
+Ahora si, puedo gestionar al modelo `Pipol` desde el administrador del sitio.
+
+Pasemos a lo siguiente.
 
 
