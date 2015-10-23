@@ -2,114 +2,203 @@ Title: Revisión del Modelo de Usuarios
 Date: 2015-10-21 13:30:44 p.m.
 Category: dev
 
-Antes de cerrar el ciclo de esta característica, el tener un nuevo modelo de usuarios tenía que revisar que el modelo que estaba contruyendo fuera compatible con el modelo actual. Y que bueno, porque no son compatibles.
+Bueno, pues me equivoqué. Necesitaba algunas características que requerían inicialmente solo de agregar campos al modelo usuario, usando el modelo `AbstractUser`, pero el tutorial que estaba siguiendo insiste en usar el correo electrónico como nombre de usuario, pues es ahí donde las cosas no funcionaron para mi.
 
-Este es el modelo actual:
+Lo que hice en realidad fue comprender como se formaba el modelo de usuario en Django y reproducirlo. Efectivamente, repetí el modelo, con algunas modificaciones, pero en el proceso aprendí mucho.
 
-```python
-SITIO = ( 
-  (0, 'Junta Local', ),
-  (1, '01 Junta Distrital'),
-  (2, '02 Junta Distrital'),
-  (3, '03 Junta Distrital') 
-)
-PUESTOS = (
-  ('VEL', 'Vocal Ejecutivo de la Junta Local'),
-  ('VSL', 'Vocal Secretario de la Junta Local'),
-  ('VRL', 'Vocal del RFE de la Junta Local'),
-  ('JOSA', 'JO de Seguimiento y Análisis Distrital'),
-  ('JOSAL', 'JO de Seguimiento y Análisis en la JL'),
-  ('JOCE', 'Jefe de Cartografía'),
-  ('JMM', 'Jefe de Monitoreo a Módulos'),
-  ('VED', 'Vocal Ejecutivo de Junta Distrital'),
-  ('VSD', 'Vocal Secretario de Junta Distrtital'),
-  ('VRD', 'Vocal del RFE de Junta Distrital'),
-  ('MC', 'Meta Colectiva'),
-  ('VOL', 'Vocal de Organización de la Junta Local'),
-  ('VOD', 'Vocal de Organización de Junta Distrital'),
-  ('VCL', 'Vocal de Capacitación de la Junta Local'),
-  ('VCD', 'Vocal de Capacitación de Junta Distrital'),
-  ('RA', 'Rama Administrativa'),
-)
+## El modelo User de Django
 
-class Pipol(AbstractUser):
-sitio = models.IntegerField(choices=SITIO, default=0)
-puesto = models.CharField (choices=PUESTOS, max_length=5, default='RA')
-orden = models.IntegerField(default=99, blank=True, null=True)
+El modelo `User` de Django está formado por el modelo `AbstractUser` que a su vez hereda sus características de dos modelos más: `AbstractBaseUser` y `PermissionMixin`.
 
-def __unicode__ (self):
-    return str(self.username)
+`AbstractBaseUser` nos da los campos `password` y `last_login` y una serie de métodos relacionados con la contraseña y seguridad.
 
-def get_sitio (self):
-    return SITIO[self.sitio][1].upper()
+`AbstractUser` los campos `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active` y `date_joined`, además de los métodos `get_full_name`, `get_short_name` y `email_user`.
 
-def is_mspe(self):
-    if self.puesto == "RA":
-        return False
-    else:
-        return True
-```
+Por su parte, el modelo `PermissionMixin` nos da, entre otras cosas, el campo `is_superuser`, las relaciones `groups` y `user_permissions` y una serie de útiles métodos relacionados con permisos.
 
-Veo en este modelo que hay menos campos y uso menos constantes. Pero las principales diferencias son las siguientes:
+## El modelo Pipol
+
+Decidí recrear la funcionalidad de `AbstractUser` para aprender mejor como funciona este modelo. Basícamente copié y pegué el [código fuente de Django](https://github.com/django/django/blob/stable/1.8.x/django/contrib/auth/models.py) y agregué los cambios que necesitaba para mi modelo.
+
+Los campos que necesito son los siguientes:
 
 ```python
-orden = models.IntegerField(default=99, blank=True, null=True)
+    rfc = models.CharField(
+        'RFC', max_length=13, blank=True,
+        help_text='Escriba el RFC del usuario'
+    )
 ```
 
-Hay un campo de `orden`. Existe porque pensaba que había precedencia en el los puestos. O sea que los `VE` van antes que los `VO` y los `L` antes de los `D`. En realidad si me parece interesante el orden, pero debería estar relacionado con el puesto, no con el registro.
+Algunas aplicaciones del CMI requieren conocer el Registro Federal de Contribuyentes. Hay un proyecto de Django llamado [_Local Flavors_](http://django-localflavor.readthedocs.org/en/latest/localflavor/mx/#) que nos proporciona una serie de auxiliares específicos para México, tal vez lo use más adelante.
 
 ```python
-def is_mspe(self):
-     if self.puesto == "RA":
-         return False
-     else:
-         return True
+    entidad = models.PositiveSmallIntegerField(default=29, choices=ENTIDADES)
+    sitio = models.PositiveSmallIntegerField(
+        choices=SITIOS, blank=True, null=True
+    )
+    puesto = models.CharField(
+        max_length=4, choices=PUESTOS, blank=True, null=True
+    )
 ```
 
-Ya sospechaba que no había necesidad de que `mspe` fuera un campo, porque se puede calcular. Este cambio si se va a nuestro modelo, como propiedad. Así es como quedó.
+Nos permiten ubicar a los funcionarios. No había decidido usar el campo `orden` hasta ahora, pero ya que domino el modelo de usuarios, incluso si decido quitarlo mas adelante, gracias a las migraciones será una tarea trivial.
 
 ```python
-def _is_mspe(self):
-     if self.puesto == RA:
-         return False
-     else:
-         return True
-mspe = property(_is_mspe)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 ```
 
-### Métodos obligatorios
-
-Al intentar usar el modelo, ejecutando el comando `runserver` me aparecía un error relacionado con la ausencia de la propiedad `is_staff`, que se soluciona con  agregando los siguientes métodos y propiedades.
+Dejo estos campos, de nuevo, pensando en que tal vez la aplicación que estoy desarrollando los use en el futuro. Si no es así, siempre podré borrarlos.
 
 ```python
-@property
-def is_superuser(self):
-    return self.is_admin
-
-@property
-def is_staff(self):
-    return self.is_admin
-
-def has_perm(self, perm, obj=None):
-    return self.is_admin
-
-def has_module_perms(self, app_label):
-    return self.is_admin
+    @property
+    def is_mspe(self):
+        if self.puesto == RA:
+            return False
+        else:
+            return True
 ```
 
-## Problemas y mas problemas
-Cuando ejecuto el servidor, con la intención de verificar el funcionamiento del área administrativa obtengo una serie de errores relacionados con campos faltantes.
+`is_mspe` simplemente identifica a los miembros del servicio profesional y así no tiene que ser un campo. Aunque como un campo podría usarlo como un filtro. Ya veremos más adelante.
 
-```
-ERRORS:
-<class 'core.admin.PipolAdmin'>: (admin.E019) The value of 'filter_horizontal[0]' refers to 'groups', which is not an attribute of 'core.Pipol'.
-<class 'core.admin.PipolAdmin'>: (admin.E019) The value of 'filter_horizontal[1]' refers to 'user_permissions', which is not an attribute of 'core.Pipol'.
-<class 'core.admin.PipolAdmin'>: (admin.E108) The value of 'list_display[2]' refers to 'first_name', which is not a callable, an attribute of 'PipolAdmin', or an attribute or method on 'core.Pipol'.
-<class 'core.admin.PipolAdmin'>: (admin.E108) The value of 'list_display[3]' refers to 'last_name', which is not a callable, an attribute of 'PipolAdmin', or an attribute or method on 'core.Pipol'.
-<class 'core.admin.PipolAdmin'>: (admin.E116) The value of 'list_filter[0]' refers to 'is_staff', which does not refer to a Field.
-<class 'core.admin.PipolAdmin'>: (admin.E116) The value of 'list_filter[1]' refers to 'is_superuser', which does not refer to a Field.
-<class 'core.admin.PipolAdmin'>: (admin.E116) The value of 'list_filter[2]' refers to 'is_active', which does not refer to a Field.
-<class 'core.admin.PipolAdmin'>: (admin.E116) The value of 'list_filter[3]' refers to 'groups', which does not refer to a Field.
+Al final este es el modelo.
+
+```python
+@python_2_unicode_compatible
+class Pipol(AbstractBaseUser, PermissionsMixin):
+    """
+    Clase para gestionar los usuarios del cuadro de mando integral.
+    Incluye la posibilidad de incluir otras entidades y poder filtrar
+    de acuerdo con ello.
+    """
+    email = models.EmailField(
+        _('email'), unique=True,
+        help_text='Escriba un correo electrónico',
+    )
+    username = models.CharField(
+        _('username'),
+        max_length=30,
+        unique=True,
+        help_text=_('''
+            Required. 30 characters or fewer. Letters, digits and
+            @/./+/-/_ only.
+        '''),
+        validators=[
+            validators.RegexValidator(
+                r'^[\w.@+-]+$',
+                _('Enter a valid username. This value may contain only '
+                  'letters, numbers ' 'and @/./+/-/_ characters.')
+            ),
+        ],
+        error_messages={
+            'unique': _("A user with that username already exists."),
+        },
+    )
+
+    first_name = models.CharField(
+        _('Nombre'),
+        max_length=70, blank=True
+    )
+    last_name = models.CharField(max_length=70, blank=True)
+    rfc = models.CharField(
+        'RFC', max_length=13, blank=True,
+        help_text='Escriba el RFC del usuario'
+    )
+
+    entidad = models.PositiveSmallIntegerField(default=TLAXCALA, choices=ENTIDADES)
+    sitio = models.PositiveSmallIntegerField(
+        choices=SITIOS, blank=True, null=True
+    )
+    puesto = models.CharField(
+        max_length=4, choices=PUESTOS, blank=True, null=True
+    )
+    orden = models.PositiveSmallIntegerField()
+
+    is_staff = models.BooleanField(
+        _('staff status'),
+        default=False,
+        help_text=_('Designates whether the user can log into this admin site.'),
+    )
+    is_active = models.BooleanField(
+        _('active'),
+        default=True,
+        help_text=_(
+            'Designates whether this user should be treated as active. '
+            'Unselect this instead of deleting accounts.'
+        ),
+    )
+    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = PipolManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
+    def __str__(self):
+        return self.email
+
+    def get_full_name(self):
+        return ' '.join([self.first_name, self.last_name])
+
+    def get_short_name(self):
+        return self.first_name
+
+    def email_user(self, subject, message, from_email=None, **kwargs):
+        """
+        Sends an email to this User.
+        """
+        send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    @property
+    def is_mspe(self):
+        if self.puesto == RA:
+            return False
+        else:
+            return True
 ```
 
-Supongo que espero demasiado de la clase `AbstractUser`.
+### El gestor de objetos PipolManager
+
+El `PipolManager` es básicamente el mismo que viene con Django. 
+
+```python
+class PipolManager(BaseUserManager):
+    use_in_migrations = True
+
+    def _create_user(self, username, email, password, **extra_fields):
+        """
+        Creates and saves a User with the given username, email and password.
+        """
+        if not username:
+            raise ValueError('The given username must be set')
+        email = self.normalize_email(email)
+        user = self.model(username=username, email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, username, email=None, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        return self._create_user(username, email, password, **extra_fields)
+
+    def create_superuser(self, username, email, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+
+        return self._create_user(username, email, password, **extra_fields)
+```
+
+Ya sé que estoy repitiendo, pero el proceso me ayudó a comprender como funciona.
+
+
+
+
