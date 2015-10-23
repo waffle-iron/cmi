@@ -147,7 +147,7 @@ class Pipol(AbstractBaseUser, PermissionsMixin):
     puesto = models.CharField(
         max_length=4, choices=PUESTOS, blank=True, null=True
     )
-    orden = models.PositiveSmallIntegerField()
+    orden = models.PositiveSmallIntegerField(default=99)
 
     is_staff = models.BooleanField(
         _('staff status'),
