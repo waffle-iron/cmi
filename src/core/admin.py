@@ -49,7 +49,7 @@ class PipolAdmin(UserAdmin):
     add_form = PipolCreateForm
     add_fieldsets = (
         (None, {'fields': [('email', 'username', 'password1', 'password2')],
-                'classes': ('wide', ),
+                'classes': ('aligned', ),
                 }),
     )
 
