@@ -1,0 +1,20 @@
+---
+title: Tutorial de REST Framework
+notebook: Desarrollo Web
+tags:Django, rest
+---
+
+Antes de continuar con el desarrollo de nuestra aplicación con __AngularJS__ debemos aprender los conceptos básicos de REST, por lo que vamos a seguir el [_tutorial_](http://www.django-rest-framework.org/tutorial/quickstart/), con los ajustes que se necesiten.
+
+## Serializadores
+
+En Django, la __serialización__ es el proceso de traducir estructuras de datos u objetos a un formato que pueda ser almacenado y así poder reconstruirlo en otro momento. Por ejemplo, con lo de la distritación, los datos de los escenarios se _serializaban_ usando el formato `.json` como medio de transporte.
+
+Este tutorial nos enseñará como se usan los serializadores en _Django REST Framework_[^1], asi que vamos a crear algunos y para eso necesitamos crear el archivo `core/serializers.py`
+
+
+
+
+
+[^1]: DRF _pa'_ los cuates.
+
