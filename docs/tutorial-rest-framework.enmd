@@ -6,7 +6,7 @@ tags:Django, rest
 
 Antes de continuar con el desarrollo de nuestra aplicación con **AngularJS** debemos aprender los conceptos básicos de REST, por lo que vamos a seguir el [*tutorial*](http://www.django-rest-framework.org/tutorial/quickstart/), con los ajustes que se necesiten.
 
-## Serializadores
+### Serializadores
 
 En Django, la **serialización** es el proceso de traducir estructuras de datos u objetos a un formato que pueda ser almacenado y así poder reconstruirlo en otro momento. Por ejemplo, con lo de la distritación, los datos de los escenarios se *serializaban* usando el formato `.json` como medio de transporte.
 
@@ -39,15 +39,97 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 ```
 
 
+> Nota: ¿Ya vieron el campo `url`? No existe en el modelo `Pipol`, ¿de dónde saldrá?
+
 Manejar las relaciones entre entidades es uno de los aspectos más complicados en el diseño de una API[^2]. Existen varias formas de representar una relación:
 
 - Usar claves primarias
 - Usar hiperenlaces entre entidades
-- Usar un campo `slug único en la entidad relacionada
+- Usar un campo `slug` unico en la entidad relacionada
 - Anidar[^3] las entidades relacionadas dentro de la representación superior.
  
 En este caso, usamos relaciones *hiperenlazadas*, con `HyperlinkedModelSerializer`, porque se supone que es una buena práctica.
 
+### Vistas
+
+Ahora vamos a escribir unas cuantes vistas en el archivo correspondiente.
+
+```python
+# -*- coding: UTF-8 -*-
+
+#         app: mx.ine.sgc.cmi
+#      módulo: core.models
+# descripción: Modelos básicos del núcleo del CMI
+#  __author__: toledano
+#       fecha: oct 24, 2015
+
+from .models import Pipol
+from django.contrib.auth.models import User, Group
+from rest_framework import viewsets
+from .serializers import PipolSerializer, GroupSerializer
+
+
+class PipolViewSet(viewsets.ModelViewSet):
+    """
+    Punto de acceso API que permite ver y editar usuarios.
+    """
+    queryset = Pipol.objects.all().order_by('-date_joined')
+    serializer_class = PipolSerializer
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    """
+    Punto de acceso API que permite ver y editar grupos.
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+```
+
+
+Dice el tutorial que usar *ViewSet* evita que tengamos demasiadas vistas y que es mejor tenerlas agrupadas.
+
+### Los ruteadores
+
+Dice la documentación de Ruby on Rails que los recursos de *ruteo* nos permiten declarar rápidamente las rutas comunes de un controlador de recursos dado. O sea que en lugar de declarar diferentes rutas para el índice, por ejemplo, un ruteador las declara en una sola línea de código.
+
+```python
+from django.conf.urls import include, url
+from django.contrib import admin
+from rest_framework import routers
+from .views import PipolViewSet, GroupViewSet
+
+router = routers.DefaultRouter()
+router.register(r'users', PipolViewSet)
+router.register(r'groups', GroupViewSet)
+
+urlpatterns = [
+    url(r'^', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^admin/', include(admin.site.urls)),
+]
+```
+
+De nuevo, estamos usando *viewsets* en lugar de vistas simples, porque se están generando automáticamente. ¿Ya vieron cuáles? `GET`, `POST`, `HEAD` y `OPTIONS`. Todavía no tengo claro para que sirven, pero ya las tenemos.
+
+Como pueden ver en la página generada, hay un formulario de *login*, bastante útil y que usa el modelo que definimos anteriormente.
+
+### La configuración
+
+Agregamos `rest_framework` a la lista de aplicaciones y la configuración específica de `REST_FRAMEWORK` a nuestro archivo `core/settings/local.py`.
+
+```python
+INSTALLED_APPS = (
+    # ...
+    'rest_framework',
+)
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGE_SIZE': 10
+}
+```
+
+Ahora solo nos queda arrancar el servidor y jugar un poco con la API que hemos generado.
 
 
 [^1]: DRF _pa'_ los cuates.
