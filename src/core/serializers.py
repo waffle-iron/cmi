@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 #         app: mx.ine.sgc.cmi
-#      módulo: core.models
+#      módulo: core.selializers
 # descripción: Modelos básicos del núcleo del CMI
 #  __author__: toledano
 #       fecha: oct 19, 2015
