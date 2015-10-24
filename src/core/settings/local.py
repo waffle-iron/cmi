@@ -15,6 +15,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 INSTALLED_APPS += (
     'debug_toolbar',
+    'rest_framework',
 )
 
 DATABASES = {
@@ -26,3 +27,7 @@ DATABASES = {
 
 SECRET_KEY = 'kg[:{L[Rm >zT+~e-&;JR?Us,tN~-@c9wPXyS}Y)JfZo[W>Kr8-[y|5~O^,j4p&T'
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGE_SIZE': 10
+}
