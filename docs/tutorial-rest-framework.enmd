@@ -4,17 +4,54 @@ notebook: Desarrollo Web
 tags:Django, rest
 ---
 
-Antes de continuar con el desarrollo de nuestra aplicación con __AngularJS__ debemos aprender los conceptos básicos de REST, por lo que vamos a seguir el [_tutorial_](http://www.django-rest-framework.org/tutorial/quickstart/), con los ajustes que se necesiten.
+Antes de continuar con el desarrollo de nuestra aplicación con **AngularJS** debemos aprender los conceptos básicos de REST, por lo que vamos a seguir el [*tutorial*](http://www.django-rest-framework.org/tutorial/quickstart/), con los ajustes que se necesiten.
 
 ## Serializadores
 
-En Django, la __serialización__ es el proceso de traducir estructuras de datos u objetos a un formato que pueda ser almacenado y así poder reconstruirlo en otro momento. Por ejemplo, con lo de la distritación, los datos de los escenarios se _serializaban_ usando el formato `.json` como medio de transporte.
+En Django, la **serialización** es el proceso de traducir estructuras de datos u objetos a un formato que pueda ser almacenado y así poder reconstruirlo en otro momento. Por ejemplo, con lo de la distritación, los datos de los escenarios se *serializaban* usando el formato `.json` como medio de transporte.
 
-Este tutorial nos enseñará como se usan los serializadores en _Django REST Framework_[^1], asi que vamos a crear algunos y para eso necesitamos crear el archivo `core/serializers.py`
+Este tutorial nos enseñará como se usan los serializadores en *Django REST Framework*[^1], asi que vamos a crear algunos y para eso necesitamos crear el archivo `core/serializers.py`
+
+```python
+# -*- coding: UTF-8 -*-
+
+#         app: mx.ine.sgc.cmi
+#      módulo: core.models
+# descripción: Modelos básicos del núcleo del CMI
+#  __author__: toledano
+#       fecha: oct 19, 2015
+
+from .models import Pipol
+from django.contrib.auth.models import Group
+from rest_framework import serializers
 
 
+class PipolSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Pipol
+        fields = ('url', 'username', 'email', 'groups')
+
+
+class GroupSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Group
+        fields = ('url', 'name')
+```
+
+
+Manejar las relaciones entre entidades es uno de los aspectos más complicados en el diseño de una API[^2]. Existen varias formas de representar una relación:
+
+- Usar claves primarias
+- Usar hiperenlaces entre entidades
+- Usar un campo `slug único en la entidad relacionada
+- Anidar[^3] las entidades relacionadas dentro de la representación superior.
+ 
+En este caso, usamos relaciones *hiperenlazadas*, con `HyperlinkedModelSerializer`, porque se supone que es una buena práctica.
 
 
 
 [^1]: DRF _pa'_ los cuates.
 
+[^2]: Bueno, eso dicen. Yo no tengo ni idea.
+
+[^3]: Del verbo *nudo*, no del verbo *nido*
