@@ -115,8 +115,7 @@ class Pipol(AbstractBaseUser, PermissionsMixin):
         max_length=30,
         unique=True,
         help_text=_('''
-            Required. 30 characters or fewer. Letters, digits and
-            @/./+/-/_ only.
+            Obligatorio. 30 caracteres o menos. Letras, números ó @ . + - _ solamente.
         '''),
         validators=[
             validators.RegexValidator(
