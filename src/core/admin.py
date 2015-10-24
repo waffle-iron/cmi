@@ -6,13 +6,14 @@
 #  __author__: Javier Sanchez Toledano
 #       fecha: octubre 22 de 2015
 
-from django.contrib import admin
 from django import forms
+from django.contrib import admin
 from django.contrib.auth import authenticate, get_user_model
-from django.utils.translation import gettext as _
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from django.utils.translation import gettext as _
+
 from .models import Pipol
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
 class PipolChangeForm(UserChangeForm):
@@ -58,7 +59,9 @@ class PipolAdmin(UserAdmin):
         (None, {'fields': [('email', 'username', 'password')]}),
         (_('Personal info'), {'fields': ('first_name', 'last_name', 'rfc')}),
         (_('INE'), {'fields': ('entidad', 'sitio', 'puesto', )}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        (_('Permissions'), {'fields': (
+            'is_active', 'is_staff', 'is_superuser',
+            'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
 

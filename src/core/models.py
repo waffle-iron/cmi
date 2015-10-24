@@ -7,16 +7,15 @@
 #       fecha: oct 19, 2015
 
 from __future__ import unicode_literals
-from django.utils.translation import gettext as _
-from django.contrib.auth.models import (
-    AbstractBaseUser, PermissionsMixin, BaseUserManager
-)
+
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin)
+from django.core import validators
 from django.core.mail import send_mail
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
-from django.core import validators
 from django.utils import timezone
-
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.translation import gettext as _
 
 TLAXCALA = 29
 ENTIDADES = (
@@ -115,7 +114,8 @@ class Pipol(AbstractBaseUser, PermissionsMixin):
         max_length=30,
         unique=True,
         help_text=_('''
-            Obligatorio. 30 caracteres o menos. Letras, números ó @ . + - _ solamente.
+            Obligatorio. 30 caracteres o menos. Letras, números
+            ó @ . + - _ solamente.
         '''),
         validators=[
             validators.RegexValidator(
@@ -139,7 +139,8 @@ class Pipol(AbstractBaseUser, PermissionsMixin):
         help_text='Escriba el RFC del usuario'
     )
 
-    entidad = models.PositiveSmallIntegerField(default=TLAXCALA, choices=ENTIDADES)
+    entidad = models.PositiveSmallIntegerField(
+        default=TLAXCALA, choices=ENTIDADES)
     sitio = models.PositiveSmallIntegerField(
         choices=SITIOS, blank=True, null=True
     )
@@ -151,7 +152,8 @@ class Pipol(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
-        help_text=_('Designates whether the user can log into this admin site.'),
+        help_text=_(
+            'Determina quienes pueden acceder al área interna.'),
     )
     is_active = models.BooleanField(
         _('active'),

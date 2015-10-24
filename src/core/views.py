@@ -6,10 +6,12 @@
 #  __author__: toledano
 #       fecha: oct 24, 2015
 
-from .models import Pipol
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group, User
+
 from rest_framework import viewsets
-from .serializers import PipolSerializer, GroupSerializer
+
+from .models import Pipol
+from .serializers import GroupSerializer, PipolSerializer
 
 
 class PipolViewSet(viewsets.ModelViewSet):

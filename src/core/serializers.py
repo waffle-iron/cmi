@@ -6,9 +6,11 @@
 #  __author__: toledano
 #       fecha: oct 19, 2015
 
-from .models import Pipol
 from django.contrib.auth.models import Group
+
 from rest_framework import serializers
+
+from .models import Pipol
 
 
 class PipolSerializer(serializers.HyperlinkedModelSerializer):
