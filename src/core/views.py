@@ -11,7 +11,7 @@ from django.contrib.auth.models import Group, User
 from rest_framework import viewsets
 
 from .models import Pipol
-from .serializers import GroupSerializer, PipolSerializer
+from .serializers import GroupSerializer, PipolSerializer, PipolSerial
 
 
 class PipolViewSet(viewsets.ModelViewSet):
@@ -19,7 +19,7 @@ class PipolViewSet(viewsets.ModelViewSet):
     Punto de acceso API que permite ver y editar usuarios.
     """
     queryset = Pipol.objects.all().order_by('-date_joined')
-    serializer_class = PipolSerializer
+    serializer_class = PipolSerial
 
 
 class GroupViewSet(viewsets.ModelViewSet):
