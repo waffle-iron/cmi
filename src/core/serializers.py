@@ -21,7 +21,6 @@ class PipolSerial(serializers.ModelSerializer):
         fields = ('id', 'email', 'username', 'created_at', 'updated_at',
                   'first_name', 'last_name', 'rfc',
                   'entidad', 'sitio', 'puesto', 'orden',
-                  'is_staff', 'is_active',
                   'password', 'confirm_password')
         read_only_fields = ('created_at', 'updated_at', )
 
