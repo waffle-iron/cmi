@@ -64,6 +64,6 @@ Luego de verificar que las contraseñas pueden actualizarse, usaremos el método
 
         update_session_auth_hash(self.context.get('request'), instance)
 
-Cuando se actualiza la contraseña de un usuario, su marca de autenticación de sesión debe actualizarse explícitamente. Si no lo hacemos, el usuario no sera autentiado en la siguiente solicitud y tendrá que registrarse de nuevo.
+Cuando se actualiza la contraseña de un usuario, su marca de autenticación de sesión debe actualizarse explícitamente. Si no lo hacemos, el usuario no sera autenticado en la siguiente solicitud y tendrá que registrarse de nuevo.
 
 
