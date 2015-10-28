@@ -1,7 +1,7 @@
-:Title: Un nuevo PipolSerializer
-:Date: 2015-10-24 1:58:01 p.m.
-:Category: Desarrollo Web
-:Tags:  Desarrollo Web, Django, REST Framework
+Title: Un nuevo PipolSerializer
+Date: 2015-10-24 1:58:01 p.m.
+Category: Desarrollo Web
+Tags:  Desarrollo Web, Django, REST Framework
 
 Continuo ahora con el tutorial, que empezamos desde hace unos días. Vamos a agregar una nueva vista y a compararla con la que ya tenemos actualmente. Al final esta es la que vamos a usar.
 
