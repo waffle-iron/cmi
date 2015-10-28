@@ -66,4 +66,17 @@ Luego de verificar que las contraseñas pueden actualizarse, usaremos el método
 
 Cuando se actualiza la contraseña de un usuario, su marca de autenticación de sesión debe actualizarse explícitamente. Si no lo hacemos, el usuario no sera autenticado en la siguiente solicitud y tendrá que registrarse de nuevo.
 
+## Conclusión
 
+No deberíamos tener problemas al acceder a nuestros datos usando el serializador (aunque no veo el formato JSON) en ningún lado. Usando `shell` de Django podemo ver lo siguiente.
+
+    In [1]: from core.models import Pipol
+    In [2]: from core.serializers import PipolSerial
+    In [3]: pipol = Pipol.objects.latest('created_at')
+    In [4]: serial_pipol = PipolSerial(pipol)
+    In [5]: serial_pipol.data.get('email')
+    Out[5]: 'pipol@example.com'
+    In [6]: serial_pipol.data.get('username')
+    Out[6]: 'username'
+
+Que es lo que queríamos lograr.
