@@ -12,7 +12,7 @@ from rest_framework import serializers
 from .models import Pipol
 
 
-class PipolSerial(serializers.ModelSerializer):
+class PipolSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=False)
     confirm_password = serializers.CharField(write_only=True, required=False)
 
@@ -44,12 +44,6 @@ class PipolSerial(serializers.ModelSerializer):
             update_session_auth_hash(self.context.get('request'), instance)
 
             return instance
-
-
-class PipolSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Pipol
-        fields = ('url', 'username', 'email', 'groups')
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
