@@ -9,7 +9,7 @@
 from rest_framework import permissions, viewsets
 
 from core.models import Pipol
-from core.permissions import IsAccountOwner
+from core.permissions import IsPipolOwner
 from core.serializers import PipolSerializer
 
 
@@ -25,17 +25,17 @@ class PipolViewSet(viewsets.ModelViewSet):
         if self.request.method == 'POST':
             return (permissions.AllowAny(),)
 
-        return (permissions.IsAuthenticated(), IsAccountOwner(),)
+        return (permissions.IsAuthenticated(), IsPipolOwner(),)
 
     def create(self, request):
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
-            Account.objects.create_user(**serializer.validated_data)
+            Pipol.objects.create_user(**serializer.validated_data)
 
             return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
 
         return Response({
             'status': 'Bad request',
-            'message': 'Account could not be created with received data.'
+            'message': 'No es posible crear al usuario con los datos recibidos.'
         }, status=status.HTTP_400_BAD_REQUEST)
