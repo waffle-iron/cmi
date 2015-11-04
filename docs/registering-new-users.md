@@ -1,4 +1,4 @@
-Title: Vistas serializadas en Django    
+Title: Vistas serializadas en Django
 Date: 2015-10-28 8:20:55 p.m.
 Category: Desarrollo Web
 Tags: django, rest, angular
@@ -8,7 +8,7 @@ En este punto, ya tenemos el modelo y los serializadores para representar a nues
 
 Y como no podemos _acreditar_ a usarios que no existen, suena bastante coherente empezar con el registro.
 
-PAra registrar un nuevo usuarios, necesitamos un punto de acceso a la API que sirva para crear objetos `Pipol`, un servicio de AngularJS que haga la solicitud AJAX a la API y el formulario de registro. Vamos a empezar con el punto de acceso a la API.
+Para registrar un nuevo usuarios, necesitamos un punto de acceso a la API que sirva para crear objetos `Pipol`, un servicio de AngularJS que haga la solicitud AJAX a la API y el formulario de registro. Vamos a empezar con el punto de acceso a la API.
 
 ### Cómo crear _viewsets_ para una API
 
