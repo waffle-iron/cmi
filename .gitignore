@@ -5,6 +5,7 @@ assets/
 src/sources/tmp/
 data/
 .idea/
+.vagrant/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

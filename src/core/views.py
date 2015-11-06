@@ -6,11 +6,15 @@
 #  __author__: toledano
 #       fecha: oct 24, 2015
 
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.generic.base import TemplateView
+from django.utils.decorators import method_decorator
+
 from rest_framework import permissions, viewsets
 
-from core.models import Pipol
-from core.permissions import IsAccountOwner
-from core.serializers import PipolSerializer
+from .models import Pipol
+from .permissions import IsPipolOwner
+from .serializers import PipolSerializer
 
 
 class PipolViewSet(viewsets.ModelViewSet):
@@ -25,17 +29,25 @@ class PipolViewSet(viewsets.ModelViewSet):
         if self.request.method == 'POST':
             return (permissions.AllowAny(),)
 
-        return (permissions.IsAuthenticated(), IsAccountOwner(),)
+        return (permissions.IsAuthenticated(), IsPipolOwner(),)
 
     def create(self, request):
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
-            Account.objects.create_user(**serializer.validated_data)
+            Pipol.objects.create_user(**serializer.validated_data)
 
             return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
 
         return Response({
             'status': 'Bad request',
-            'message': 'Account could not be created with received data.'
+            'message': 'No es posible crear al usuario con los datos recibidos.'
         }, status=status.HTTP_400_BAD_REQUEST)
+
+
+class Index(TemplateView):
+    template_name = 'index.html'
+
+    @method_decorator(ensure_csrf_cookie)
+    def dispatch(self, *args, **kwargs):
+        return super(Index, self).dispatch(*args, **kwargs)

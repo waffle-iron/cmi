@@ -1,17 +1,16 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from rest_framework import routers
+from rest_framework_nested import routers
+from .views import PipolViewSet, Index
 
-from .views import GroupViewSet, PipolViewSet
-
-router = routers.DefaultRouter()
-router.register(r'users', PipolViewSet)
-router.register(r'groups', GroupViewSet)
+router = routers.SimpleRouter()
+router.register(r'pipols', PipolViewSet)
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
-    url(r'^api-auth/', include(
-        'rest_framework.urls', namespace='rest_framework')),
+
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/v1/', include(router.urls)),
+
+    url(r'^.*$', Index.as_view(), name='index'),
 ]
