@@ -6,11 +6,15 @@
 #  __author__: toledano
 #       fecha: oct 24, 2015
 
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.generic.base import TemplateView
+from django.utils.decorators import method_decorator
+
 from rest_framework import permissions, viewsets
 
-from core.models import Pipol
-from core.permissions import IsPipolOwner
-from core.serializers import PipolSerializer
+from .models import Pipol
+from .permissions import IsPipolOwner
+from .serializers import PipolSerializer
 
 
 class PipolViewSet(viewsets.ModelViewSet):
@@ -39,3 +43,11 @@ class PipolViewSet(viewsets.ModelViewSet):
             'status': 'Bad request',
             'message': 'No es posible crear al usuario con los datos recibidos.'
         }, status=status.HTTP_400_BAD_REQUEST)
+
+
+class Index(TemplateView):
+    template_name = 'index.html'
+
+    @method_decorator(ensure_csrf_cookie)
+    def dispatch(self, *args, **kwargs):
+        return super(Index, self).dispatch(*args, **kwargs)
