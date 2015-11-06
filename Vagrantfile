@@ -73,6 +73,8 @@ Vagrant.configure(2) do |config|
       python3-psycopg2 \
       postgresql \
       python3-pip \
-      virtualenvwrapper
+      virtualenvwrapper \
+      ncurses-dev \
+      libpq-dev
   SHELL
 end
