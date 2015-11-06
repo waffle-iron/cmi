@@ -161,9 +161,7 @@ class Index(TemplateView):
         return super(Index, self).dispatch(*args, **kwargs)
 ```
 
-
-Esta es una vista genérica basada en `TemplateView` que sobreescribe al método `dispatch` para asegurar que se cuenta con la variable `csrf` por seguridad y entonces llamar a la plantilla `index.html`, que veremos a continuación.
-
+Esta es una vista genérica basada en `TemplateView` que sobreescribe al método `dispatch` para asegurar que se cuenta con la variable `csrf` por seguridad y entonces llamar a la plantilla `index.html`, que veremos en el siguiente artículo.
 
 
 [^1]: Pues suena horrible, pero asi se dice. Creo que la palabra correcta es __acreditación__.
