@@ -6,9 +6,9 @@
 #  __author__: toledano
 #       fecha: oct 24, 2015
 
+from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.generic.base import TemplateView
-from django.utils.decorators import method_decorator
 
 from rest_framework import permissions, viewsets
 
@@ -37,7 +37,10 @@ class PipolViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             Pipol.objects.create_user(**serializer.validated_data)
 
-            return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
+            return Response(
+                serializer.validated_data,
+                status=status.HTTP_201_CREATED
+            )
 
         return Response({
             'status': 'Bad request',
