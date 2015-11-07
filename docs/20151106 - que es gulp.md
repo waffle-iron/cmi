@@ -194,6 +194,62 @@ sources/js/02-dos.js: line 1, col 40, Missing semicolon.
 1 error
 ```
 
+### Paso 3. Procesos complejos con Gulp
+
+Ni tan complejos, la verdad. Pero ya que limpiamos los archivos con `jshint`, vamos a concatenarlos, uniéndolos en uno solo, eliminando los comentarios, los espacios extra y colocando la salida en el directorio `src/assets/js`.
+
+Recuerden que en Gulp los plugin hacen una cosa, y el proceso descrito en el párrafo anterior se compone de tres actividades, que realizaran tres plugins, respectivamente:
+
+- `gulp-concat` que unirá los archivos,
+- `gulp-strip-debug` que eliminará los comentarios, y
+- `gulp-uglify` que elimina espacios sobrantes
+
+Se instalan como ya sabemos:
+
+```
+npm install gulp-concat --save-dev
+npm install gulp-strip-debug --save-dev
+npm install gulp-uglify --save-dev
+```
+
+Estos mismos plugins, los incluímos en el archivo `gulpfile.js`, en la sección correspondiente. Y definimos la tarea, que se llama `scripts`:
+
+```javascript
+// Se define la tarea `scripts`
+gulp.task('scripts', function() {
+  gulp.src(['./source/js/*.js'])
+    .pipe(concat('script.js'))
+    .pipe(comments())
+    .pipe(uglify())
+    .pipe(gulp.dest('./assets/js/'));
+});
+```
+
+El proceso se crea con `gulp.src()` que toma todos los archivos que encuentre en la ruta indicada y crea un flujo que pasa por:
+
+1. `concat` que crea el archivo `script.js` con los archivos que unió,
+2. `comments` que elimina los comanterios,
+3. `uglyfly` que elimina espacios extras, y
+4. el flujo para a la interacción `gulp.dest()` que graba el archivo `scripts.js` en la ruta indicada.
+
+Veamos si es cierto.
+
+```
+toledano@toledano src (gulpjs) $ gulp scripts
+[23:44:07] Using gulpfile ~/proyectos/cmi_core/src/gulpfile.js
+[23:44:07] Starting 'scripts'...
+[23:44:07] Finished 'scripts' after 20 ms
+```
+
+¡Funcionó! Se creo el archivo `script.js`:
+
+```javascript
+test=new Date,month=test.getMonth(),month=1*month+1,day=test.getDate(),year=test.getFullYear();
+```
+
+Como pueden ver, a tarea que llamé `comments` en realidad elimina los mensajes a la consola que uso para depurar la ejecución de los archivos. _Tal vez deba cambiarle el nombre_.
+
+
 
 
 
