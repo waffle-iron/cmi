@@ -16,6 +16,7 @@
     "url": "https://github.com/SGC-Tlaxcala/cmi_core/issues"
   },
   "devDependencies": {
-
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^1.12.0"
   }
 }
