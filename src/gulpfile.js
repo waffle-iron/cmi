@@ -1,13 +1,16 @@
+/**
+ * Created by toledano on 06/11/15.
+ */
+
+// inicializa gulp
 var gulp = require('gulp');
-var ngAnnotate = require('gulp-ng-annotate');
-var uglify = require('gulp-uglify');
 
-gulp.task('default', ['build'], function () {
-});
+// incluye los plugin
+var jshint = require('gulp-jshint');
 
-gulp.task('build', function () {
-  return gulp.src('sources/js/**/*.js')
-    .pipe(ngAnnotate())
-    .pipe(uglify())
-    .pipe(gulp.dest('assets/js/'));
+// Se define la tarea `jshint`
+gulp.task('jshint', function() {
+  gulp.src('./sources/js/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
 });
