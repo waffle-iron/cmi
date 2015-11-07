@@ -22,18 +22,53 @@ var config = {
 
 // tarea bower
 gulp.task('bower', function() { 
-  return bower()
+  bower()
     .pipe(gulp.dest(config.bowerDir)) 
 });
 
+// tarea fontawesom
+gulp.task('icons', function() { 
+  gulp.src([
+    config.bowerDir + '/font-awesome/fonts/**.*',
+    config.bowerDir + '/bootstrap-sass/assets/fonts/bootstrap/**.*'
+  ])
+    .pipe(gulp.dest('./assets/fonts')); 
+});
+
+// tarea bootstrap
+gulp.task('css', function() { 
+  sass(config.sassPath + '/cmi.scss', {
+    style: 'compressed',
+    loadPath: [
+      config.sassPath,
+      config.bowerDir + '/bootstrap-sass/assets/stylesheets',
+      config.bowerDir + '/font-awesome/scss',
+    ]
+  })
+  .on("error", notify.onError(function (error) {
+    return "Equivocación: " + error.message;
+  })) 
+  .pipe(gulp.dest('./assets/css')); 
+});
 
 // Se define la tarea `scripts`
 gulp.task('scripts', function() {
-  gulp.src(['./sources/js/*.js'])
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    .pipe(concat('script.js'))
+  gulp.src([
+      config.bowerDir + '/bootstrap-sass/assets/javascripts/bootstrap.min.js',
+      './sources/js/*.js'
+    ])
+    // .pipe(jshint())
+    // .pipe(jshint.reporter('default'))
+    .pipe(concat('cmi.js'))
     .pipe(debug())
     .pipe(uglify())
     .pipe(gulp.dest('./assets/js/'));
 });
+
+// la tarea watch
+ gulp.task('watch', function() {
+  gulp.watch(config.sassPath + '/**/*.scss', ['css']); 
+});
+
+// la tarea `default`
+  gulp.task('default', ['bower', 'icons', 'css', 'scripts']);
