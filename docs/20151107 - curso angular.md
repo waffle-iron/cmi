@@ -118,8 +118,100 @@ gulp.task('angular', function(){
   gulp.task('default', ['bower', 'icons', 'angular', 'css', 'scripts']);
 ```
 
+Como ya vimos, hay que agregar este archivo a nuestra plantilla.
 
+```html
+<script src="/js/angular.js" charset="utf-8"></script>
+```
 
+### Estructura de una aplicación de AngularJS
+
+Creo que me estoy enredando, pero revisemos: Ya establecimos que vamos a hacer: una aplicación; ya determinamos el objetivo; ya explicamos como se instala AngularJS y ahora vamos a ver como se estructura una aplicación.
+
+> Estoy aprendiendo AngularJS de la forma más difícil, creando la estructura de la aplicación desde cero, en primer lugar porque, como dije, estoy aprendiendo; en segundo, porque no es una aplicación verdadera; y en tercero, porque no sé, todavía, como se integrará la aplicación de AngularJS, con mis proyectos de Django.
+> Pero deben saber que hay un proyecto llamado [Angular Seed](https://github.com/angular/angular-seed/) que contiene la estructura básica y que solo tienen que clonar para tener una estructura completa y funcional.
+
+Una aplicación mínima, como la que estoy construyendo, consta de una página web y de un conjunto de archivos que contienen el código de la aplicación. Por supuesto que se separan por propositos de orden y gestión, pero no es obligatorio.
+
+Además, es una buena práctica colocar las hojas de estilo en un directorio `css`, los archivos de JavaScript en uno `js`, las imágenes en un directorio `img` y las fuentes en `fonts`.
+
+En esto del paradigma MVC, hay un lugar para cada cosa y cada cosa debe estar en su lugar.  El principal beneficio de esto es que la lógica del negocio (el modelo) se separa de la interface del usuario (la vista). El siguiente beneficio es que, si quieres arreglar el error en un componente o modificar su funcionalidad, sabrás exacteamente dónde encontrarlo, por lo que el mantenimiento será más fácil. Mantener la estructura de tu aplicación en módulos separados permite que puedas cargarlos y verificarlos de forma independiente.
+
+Necesitamos, entonces varios componentes, que son:
+
+1. El __Controlador__: El controlador maneja las entradas, llama al código que gestiona las reglas del negocio y comparte datos con la vista usando el `$scope`. La _lógica del negocio_ es lo que hace una aplicación. En la aplicación de `productividad`, por ejemplo, la lógica del negocio se encarga de recolectar los datos de los módulos y determinar la productividad, de acuerdo a la configuración de cada módulo. En AngularJS la lógica se realiza dentro de un __servicio__ y se inyecta al controlador. Usando el _servicio_ nuestro controlador obtiene los datos y los coloca en el objeto `$scope` para que la vista pueda mostrarlos. De este modo, el controlador solo debe preocuparse del `$scope` y no de la presentación. Si el día de mañana decides cambiar toda la UIx de tu página web, la lógica del negocio será la misma porque el controlador está completamente separado de la vista.
+2. El __Modelo__: El modelo representa los datos del negocio. La interface del usuario es la proyección del modelo en un momento dado a través de la vista.
+3. La __Vista__: La vista solo se encarga de mostrar los datos y está desacoplada de la lógica del negocio. Solo debe actualizarse cuando el modelo de datos asociado cambia. En AngularJS, la vista lee los datos del modelo contenido en el `$scope` que previamente ha sido configurado por el controlador y lo muestra usando plantillas. Esto ayuda que el _front end_, la presentación, pueda desarrollase en paralelo.
+
+> #### El alcance es el contexto
+> Piensa en el `$scope` o alcace como en el contexto de Django, que es la forma en la que el controlador y la vista están relacionados. No comparten nada, excepto el contexto o `$scope`. Por lo que podemos, por ejemplo, cambiar el tema completo de la aplicaicón y usar Foundation en lugar de Bootstrap, sin que tengamos que modificar la lógica del negocio.
+
+Bueno, después del choro de la estructura de una aplicación, vamos a modificar nuestra aplicación para que se ajuste a estos conceptos.
+
+Vamos a crear un el archivo `js/app.js` con este contenido.
+
+```js
+angular.module('misApps', [
+  'misApps.controllers'
+]);
+```
+
+`misApps` es nuestro módulo principal, el que se carga al iniciar la aplicación. Este módulo depende de otro llamado `controllers` que crearemos a continuación.
+
+```js
+angular.module('misApps.controllers', [])
+  .controller('ControlQuincena', function($scope){
+    $scope.quincena = 0;
+    $scope.porcentaje = 0;
+    $scope.resultado = function() {
+      return $scope.quincena * $scope.porcentaje * 0.01;
+    };
+});
+```
+
+El objeto `$scope` se pasa al construnctor de la función  de `ControlQuincena`. Luego creamos dos atributos en el `$scope`, `quincena` y `porcentaje`, para que estén disponibles en la vosta. También creamos una función `resultado()` dentro de nuestro `scope` que calcula cuánto podemos gastar en apps y devuelve el resultado. Esta función también está disponible en la vista.
+
+Nuestra plantilla ahora debe verse así:
+
+```html
+<!DOCTYPE html>
+<html lang="es" ng-app="misApss">
+  <head>
+   <title>Comprador de Aplicaciones</title>
+
+  </head>
+  <body ng-controller="ControlQuincena">
+    ¿Cuánto ganas?
+    <input type="text" ng-model="quincena">
+    <br/>
+
+    Qué tanto quieres gastar en apps?
+    <input type="text" ng-model="porcentaje">%
+    <br/>
+
+    La cantidad que puedes gastar es
+    <span>{{ resultado() }}</span>
+
+    <script src="/js/angular.js" charset="utf-8"></script>
+    <script src="js/app.js" charset="utf-8"></script>
+    <script src="js/controllers.js" charset="utf-8"></script>
+    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+  </body>
+</html>
+```
+
+En nuestra plantilla, el atributo `ng-controller` inicializa el controlador `ControlQuincena` y le pasa el contexto `$scope`. En este caso, el controlador se aplica a todo el elemento `<body>`, por lo tanto, las propiedades y atributos del contexto `$scope` pueden llamarse directamente desde cualquier lugar entre `<body>` y `</body>`.
+
+Como puedes ver, nos referimos a las propiedades del modelo usando `ng-model`. Este modelo se actualiza cada vez que actualizamos los valores en los campos respectivos. También llamamos a la función `result()` del contexto `$scope` dentro de la expresión `{{ }}` y se vuelve a llamar cada vez que los campos `quincena` y `porcentaje` de nuestro modelo cambian. Como resultado, el DOM siempre se actualiza con el valor correcto que resulte.
+
+> #### Buenas prácticas
+> Cuando creamos un modelo en un controlador, debemos nombrarlo usando Mayúsculas Iniciales tipo __PascalCase__, porque es una recomendación de JavaScript que los constructores deben seguir este modelo, y como en AngularJS los controladores son, de hecho, constructores, pues... eso.
+
+## Conclusión
+
+Así es, en su forma más básica, una aplicación de AngularJS. El tema es tan amplio como Python o Django. Pero este es el conocimiento mínimo para empezar.
+
+En nuestro siguiente capítulo veremos con algo mas de detalle los modelos, controladores y los famosos _Data Bindings_.
 
 
 <!-- Notas -->
