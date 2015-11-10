@@ -36,7 +36,7 @@ Ya que tenemos un módulo, podemos agregarle diferentes componentes. Es como cre
 (function() {
   var primerModulo = angular.module('firstmodule', []);
   primerModulo.controller('PrimerControlador', function($scope){
-    // mi primer controladore
+    // mi primer controlador
   });
   primerModulo.directiva('PrimeraDirectiva', function() {
     return {};
@@ -45,4 +45,52 @@ Ya que tenemos un módulo, podemos agregarle diferentes componentes. Es como cre
 ```
 
 > Este método se llama IIFE (Expresión funcional invocada inmediatamente) y
-evita que contaminemos el alcance `$scope` global con variables innecesarias. AgularJS cuando encuentra un módulo con dos argumentos
+evita que contaminemos el alcance `$scope` global con variables innecesarias. AgularJS cuando encuentra un módulo con dos argumentos (y el último es para dependencias) AngularJS crea un nuevo módulo. Las llamadas subsecuentes a `angular.module()` con un solo argumento (solo el nombre del módulo), hacen que AngularJS recupere el módulo que había creado.
+
+O sea que el código anterior podemos escribirlo de forma más simple:
+
+```javascript
+angular.module('primerModule, []');
+angular.module('primerModule').controller('PrimerControlador', function($scope){
+  // mi super controlador
+});
+angular.module('primerModule').directive('PrimeraDirectiva', function(){
+  return {
+    // mi primera directiva
+  };
+});
+```
+
+O si de plano te quieres ver muy _cremoso_, puedes hacerlo así:
+
+```javascript
+angular.module('primerModule', [])
+  .controller('PrimerControlador', function($scope){
+    // mi super controlador
+  })
+  .directiva('PrimeraDirectiva', function(){
+    return {
+      // mi primera directiva
+    };
+  });
+
+> El código anterior funciona, porque cada función que llamas en el módulo `angular.module()` (como `controller()`, `directive()`, etc.) regresa una refrencia al propio módulo. Es decir, que las llamadas pueden encadenarse y puedes agregar diferentes componentes de esta manera.
+
+## Para qué sirven los controladores
+
+La tarea de un controlador es aumentar el contexto `$scope` agregándole modelos y funciones que pueden ser utilizados por la vista. Un controlador no es otra cosa sino una función constructor de un objeto que es _instanciada_[^1] cuando AngularJS encuentra la directiva `ng-controller` en HTML. En otro artículo veremos mas sobre el contexto `$scope`, pero como ya vimos, el `$scope` es la interface que une tabto al controlador como a la vista.
+
+Para ver como agregar propiedades y funciones al contexto, vamosa escribir un controlador que pase la fecha y hora actual, además de un nombre a una vista usando el `$scope`.
+
+```javascript
+angular.module('miApp', [])
+  .controller('SaludaControl', function($scope){
+    $scope.hoy = new Date();  // crea el modelo 'hoy' en el contexto
+    $scope.saludo = 'Hola';   // crea el modelo 'saludo' en el contexto
+  });
+```
+
+Un controlador se registra llamando al constructo `controller()` en `angular.module()`. La función `controller()` toma dos argumentos: el primero es el nombre del controlador y el segundo es
+
+
+[^1]: Yo entiendo el verbo _instanciar_ como crear una copia de trabajo. Lo ´se, soy un loquillo.
