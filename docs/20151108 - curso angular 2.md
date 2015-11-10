@@ -90,7 +90,16 @@ angular.module('miApp', [])
   });
 ```
 
-Un controlador se registra llamando al constructo `controller()` en `angular.module()`. La función `controller()` toma dos argumentos: el primero es el nombre del controlador y el segundo es
+Un controlador se registra llamando al constructor `controller()` en `angular.module()`. La función `controller()` toma dos argumentos: el primero es el nombre del controlador y el segundo es el constructor que será llamado cuando se encuentre la directiva `ng-controller` en la página web.
+
+¿Ya vieron que la función constructora toma al `$scope` como argumento? Cuando declaras al `$scope` como un parámetro para la función constructora del controlador, estás diciendo que el controlador depende del objeto `$scope`.
+
+El parámetro llamado `$scope` tiene un significado especial. AngularJS infiere las dependencias de tu controlador de los parámetros nombrados en la función constructora. En este caso, cuando AngularJS encuentra `ng-controller='ControladorSaludo'` en la página web, crea un nuevo `$scope` para tu controlador y lo pasa como un argumento a la función constructora cuando inicializa el controlador. Esto se llama _Inyección de Dependencias_[^2], y es una parte toral de AngularJS.
+
+<!-- TODO: Múltiples dependencias -->
+
+Ahora que tenemos nuestro controladoor `hoy` listo, es momento de usarlo en nuestra vista.
 
 
 [^1]: Yo entiendo el verbo _instanciar_ como crear una copia de trabajo. Lo ´se, soy un loquillo.
+[^2]: Parezco periquito repitiendo sin entender, pero la _inyección de dependencias_ será un concepto constante en mi diario de aprendizaje.
