@@ -17,7 +17,8 @@ var bower = require('gulp-bower');
 // Configuración
 var config = {
   sassPath: './sources/sass',
-  bowerDir: './bower_components' 
+  bowerDir: './bower_components' ,
+  angularDir: './bower_components/angular'
 }
 
 // tarea bower
@@ -26,7 +27,7 @@ gulp.task('bower', function() { 
     .pipe(gulp.dest(config.bowerDir)) 
 });
 
-// tarea fontawesom
+// tarea fontawesome
 gulp.task('icons', function() { 
   gulp.src([
     config.bowerDir + '/font-awesome/fonts/**.*',
@@ -34,6 +35,12 @@ gulp.task('icons', function() { 
   ])
     .pipe(gulp.dest('./assets/fonts')); 
 });
+
+// tarea angular
+gulp.task('angular', function(){
+  gulp.src([config.angularDir + '/angular.js'])
+    .pipe(gulp.dest('./assets/js'));
+})
 
 // tarea bootstrap
 gulp.task('css', function() { 
@@ -71,4 +78,4 @@ gulp.task('scripts', function() {
 });
 
 // la tarea `default`
-  gulp.task('default', ['bower', 'icons', 'css', 'scripts']);
+  gulp.task('default', ['bower', 'icons', 'angular', 'css', 'scripts']);
