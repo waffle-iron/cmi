@@ -27,7 +27,7 @@ ptyprocess==0.5
 pycparser==2.12
 Pygments==2.0.2
 pyreadline==2.1
-Pyrex==0.9.9
+Pyrex
 PyYAML==3.11
 requests==2.7.0
 simplegeneric==0.8.1
