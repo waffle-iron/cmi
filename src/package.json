@@ -10,10 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/SGC-Tlaxcala/cmi_core"
+    "url": "https://github.com/SGC-Tlaxcala/cmi"
   },
   "bugs": {
-    "url": "https://github.com/SGC-Tlaxcala/cmi_core/issues"
+    "url": "https://github.com/SGC-Tlaxcala/cmi/issues"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
