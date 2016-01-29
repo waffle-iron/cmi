@@ -14,7 +14,15 @@ from rest_framework import permissions, viewsets
 
 from .models import Pipol
 from .permissions import IsPipolOwner
-from .serializers import PipolSerializer
+from .serializers import PipolSerializer, UserSerializer
+
+
+class UserViewSets(viewsets.ModelViewSet):
+    """
+    Punto de contacto para la API que permite que los usuarios puedan verse y editarse.
+    """
+    queryset = Pipol.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
 
 
 class PipolViewSet(viewsets.ModelViewSet):
