@@ -38,7 +38,7 @@ Vagrant.configure(2) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  config.vm.synced_folder "../cmi_core", "/srv/cmi",
+  config.vm.synced_folder "../cmi", "/srv/cmi",
     mount_options: ["dmode=755,fmode=644"]
 
   # Provider-specific configuration so you can fine-tune various
@@ -66,15 +66,5 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: <<-SHELL
-    sudo apt-get update
-    sudo apt-get install -y \
-      python3 \
-      python3-psycopg2 \
-      postgresql \
-      python3-pip \
-      virtualenvwrapper \
-      ncurses-dev \
-      libpq-dev
-  SHELL
+  config.vm.provision :shell, :path => "requisitos/instalar.sh", :args => "cmi"
 end
