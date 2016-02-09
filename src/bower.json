@@ -34,5 +34,8 @@
     "jquery": "~2.1.1",
     "ngDialog": "~0.3.3",
     "underscore": "~1.7.0"
+  },
+  "devDependencies": {
+    "snackbarjs": "~1.1.0"
   }
 }
