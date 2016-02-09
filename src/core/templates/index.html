@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="cmi">
+  <head>
+    <title>Cuadro de Mando Integral</title>
+
+    <base href="/" />
+
+    {% include 'partials/_stylesheets.html' %}
+  </head>
+
+  <body>
+    {% include 'partials/_navbar.html' %}
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 ng-view"></div>
+      </div>
+    </div>
+
+    {% include 'partials/_javascripts.html' %}
+  </body>
+</html>
