@@ -3,17 +3,8 @@
 $font-family-base: 'Noto Sans', sans-serif;
 
 // Import bootstrap and fontawesome
-@import "bootstrap";
+@import "_bootstrap";
 @import "font-awesome";
-
-// Bootstrap Starter Template Styles
-body {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-.navbar {
-  margin-bottom: 20px;
-}
 
 $rgba-primary-0: rgba(141, 93,141,1);	/* Main Primary color */
 $rgba-primary-1: rgba(255,255,255,1);
