@@ -45,36 +45,26 @@ gulp.task('angular', function(){
 
 // tarea fuentes
 gulp.task('fuentes', function(){
-  gulp.src([config.sourcesDir + '/css/styles.css'])
-    .pipe(gulp.dest('./assets/css'));
-  gulp.src([config.sourcesDir + '/js/**/*.js'])
-    .pipe(gulp.dest('./assets/js'));
-  gulp.src([config.bowerDir + '/bootstrap-material-design/dist/css/*.min.css'])
-    .pipe(gulp.dest('./assets/css'));
-  gulp.src([config.bowerDir + '/ngDialog/css/*.min.css'])
-    .pipe(gulp.dest('./assets/css'));
-  gulp.src([config.bowerDir + '/snackbarjs/dist/*.min.css'])
-    .pipe(gulp.dest('./assets/css'));
+  gulp.src([
+    config.sourcesDir + '/css/styles.css',
+    config.bowerDir + '/bootstrap-material-design/dist/css/*.min.css',
+    config.bowerDir + '/ngDialog/css/*.min.css',
+    config.bowerDir + '/snackbarjs/dist/*.min.css'
+  ]).pipe(gulp.dest('./assets/css'));
 
   // javascript
-  gulp.src([config.bowerDir + '/jquery/dist/jquery.min.js'])
-    .pipe(gulp.dest('./assets/js'));
-  gulp.src([config.bowerDir + '/angular/angular.min.js'])
-    .pipe(gulp.dest('./assets/js'));
-  gulp.src([config.bowerDir + '/bootstrap/dist/js/*.min.js'])
-    .pipe(gulp.dest('./assets/js'));
-  gulp.src([config.bowerDir + '/bootstrap-material-design/dist/js/*.min.js'])
-    .pipe(gulp.dest('./assets/js'));
-  gulp.src([config.bowerDir + '/underscore/*min.js'])
-    .pipe(gulp.dest('./assets/js'));
-  gulp.src([config.bowerDir + '/angular-route/*.min.js'])
-    .pipe(gulp.dest('./assets/js'));
-  gulp.src([config.bowerDir + '/ngDialog/js/*.min.js'])
-    .pipe(gulp.dest('./assets/js'));
-  gulp.src([config.bowerDir + '/angular-cookies/*.min.js'])
-    .pipe(gulp.dest('./assets/js'));
-  gulp.src([config.bowerDir + '/snackbarjs/dist/*.min.js'])
-    .pipe(gulp.dest('./assets/js'));
+  gulp.src([
+      config.sourcesDir + '/js/**/*.js',
+      config.bowerDir + '/jquery/dist/jquery.min.js',
+      config.bowerDir + '/bootstrap/dist/js/*.min.js',
+      config.bowerDir + '/bootstrap-material-design/dist/js/*.min.js',
+      config.bowerDir + '/underscore/*min.js',
+      config.bowerDir + '/angular-route/*.min.js',
+      config.bowerDir + '/ngDialog/js/*.min.js',
+      config.bowerDir + '/angular-cookies/*.min.js',
+      config.bowerDir + '/snackbarjs/dist/*.min.js'
+  ]).pipe(gulp.dest('./assets/js'));
+
 });
 
 // tarea bootstrap
