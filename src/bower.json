@@ -36,6 +36,8 @@
     "underscore": "~1.7.0"
   },
   "devDependencies": {
-    "snackbarjs": "~1.1.0"
+    "snackbarjs": "~1.1.0",
+    "font-awesome": "~4.5.0",
+    "bootstrap-sass": "~3.3.6"
   }
 }
