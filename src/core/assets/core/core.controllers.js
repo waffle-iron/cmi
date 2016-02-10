@@ -1,12 +1,12 @@
 /**
 * Register controller
-* @namespace cmi.core.controllers
+* @namespace core.controllers
 */
 (function () {
   'use strict';
 
   angular
-    .module('cmi.core.controllers')
+    .module('core.controllers', [])
     .controller('RegisterController', RegisterController);
 
   RegisterController.$inject = ['$location', '$scope', 'Authentication'];
@@ -22,7 +22,7 @@
     /**
     * @name register
     * @desc Register a new user
-    * @memberOf cmi.core.controllers.RegisterController
+    * @memberOf core.controllers.RegisterController
     */
     function register() {
       Authentication.register(vm.email, vm.password, vm.username);

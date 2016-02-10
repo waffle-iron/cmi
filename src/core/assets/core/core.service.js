@@ -1,12 +1,12 @@
 /**
 * Authentication
-* @namespace thinkster.authentication.services
+* @namespace core.services
 */
 (function () {
   'use strict';
 
   angular
-    .module('cmi.auth.services')
+    .module('core.service', ['ngCookies'])
     .factory('Authentication', Authentication);
 
   Authentication.$inject = ['$cookies', '$http'];
@@ -35,10 +35,10 @@
     * @param {string} password The password entered by the user
     * @param {string} email The email entered by the user
     * @returns {Promise}
-    * @memberOf thinkster.authentication.services.Authentication
+    * @memberOf core.services.Authentication
     */
     function register(email, password, username) {
-      return $http.post('/api/v1/accounts/', {
+      return $http.post('/api/v1/pipols/', {
         username: username,
         password: password,
         email: email

@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('cmi.routes')
+    .module('core.routes')
     .config(config);
 
   config.$inject = ['$routeProvider'];

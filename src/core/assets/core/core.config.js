@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('cmi.config')
+    .module('core.config')
     .config(config);
 
   config.$inject = ['$locationProvider'];
