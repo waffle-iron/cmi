@@ -1,12 +1,12 @@
 /**
 * Authentication
-* @namespace thinkster.authentication.services
+* @namespace cmi.core.services
 */
 (function () {
   'use strict';
 
   angular
-    .module('cmi.authentication.services')
+    .module('cmi.core.services')
     .factory('Authentication', Authentication);
 
   Authentication.$inject = ['$cookies', '$http'];
