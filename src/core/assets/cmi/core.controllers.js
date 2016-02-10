@@ -1,12 +1,12 @@
 /**
 * Register controller
-* @namespace thinkster.authentication.controllers
+* @namespace cmi.core.controllers
 */
 (function () {
   'use strict';
 
   angular
-    .module('cmi.authentication.controllers')
+    .module('cmi.core.controllers')
     .controller('RegisterController', RegisterController);
 
   RegisterController.$inject = ['$location', '$scope', 'Authentication'];
@@ -22,7 +22,7 @@
     /**
     * @name register
     * @desc Register a new user
-    * @memberOf thinkster.authentication.controllers.RegisterController
+    * @memberOf cmi.core.controllers.RegisterController
     */
     function register() {
       Authentication.register(vm.email, vm.password, vm.username);
