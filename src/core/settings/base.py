@@ -29,6 +29,12 @@ STATICFILES_FINDERS = (
 )
 COMPRESS_ENABLED = environ.get('COMPRESS_ENABLED', False)
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -53,8 +59,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'rest_framework',
     'compressor',
+    'rest_framework',
 
     'core'
 )

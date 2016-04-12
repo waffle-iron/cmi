@@ -1,0 +1,19 @@
+{% load compress %}
+{% load staticfiles %}
+
+{% compress js %}
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/material.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/ripples.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/underscore-min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/angular.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/angular-route.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/angular-cookies.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/ngDialog.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/snackbar.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/cmi.js' %}"></script>
+{% endcompress %}

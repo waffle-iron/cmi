@@ -16,8 +16,9 @@ var bower = require('gulp-bower');
 
 // Configuración
 var config = {
-  sassPath: './sources/sass',
-  bowerDir: './bower_components' ,
+  sourcesDir: './sources',
+  sassPath:   './sources/sass',
+  bowerDir:   './bower_components' ,
   angularDir: './bower_components/angular'
 }
 
@@ -40,10 +41,34 @@ gulp.task('icons', function() { 
 gulp.task('angular', function(){
   gulp.src([config.angularDir + '/angular.js'])
     .pipe(gulp.dest('./assets/js'));
-})
+});
+
+// tarea fuentes
+gulp.task('fuentes', function(){
+  gulp.src([
+    config.sourcesDir + '/css/styles.css',
+    config.bowerDir +   '/bootstrap-material-design/dist/css/*.min.css',
+    config.bowerDir +   '/ngDialog/css/*.min.css',
+    config.bowerDir +   '/snackbarjs/dist/*.min.css'
+  ]).pipe(gulp.dest('./assets/css'));
+
+  // javascript
+  gulp.src([
+      config.sourcesDir + '/js/**/*.js',
+      config.bowerDir +   '/jquery/dist/jquery.min.js',
+      config.bowerDir +   '/bootstrap/dist/js/*.min.js',
+      config.bowerDir +   '/bootstrap-material-design/dist/js/*.min.js',
+      config.bowerDir +   '/underscore/*min.js',
+      config.bowerDir +   '/angular-route/*.min.js',
+      config.bowerDir +   '/ngDialog/js/*.min.js',
+      config.bowerDir +   '/angular-cookies/*.min.js',
+      config.bowerDir +   '/snackbarjs/dist/*.min.js'
+  ]).pipe(gulp.dest('./assets/js'));
+
+});
 
 // tarea bootstrap
-gulp.task('css', function() { 
+gulp.task('sass', function() { 
   sass(config.sassPath + '/cmi.scss', {
     style: 'compressed',
     loadPath: [
@@ -78,4 +103,5 @@ gulp.task('scripts', function() {
 });
 
 // la tarea `default`
-  gulp.task('default', ['bower', 'icons', 'angular', 'css', 'scripts']);
+//   gulp.task('default', ['bower', 'icons', 'angular', 'css', 'scripts']);
+gulp.task('default', ['fuentes', 'sass', 'angular'])

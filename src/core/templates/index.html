@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html ng-app="cmi">
   <head>
@@ -5,18 +6,18 @@
 
     <base href="/" />
 
-    {% include 'modulos/_stylesheets.html' %}
+    {% include 'partials/_stylesheets.html' %}
   </head>
 
-<body>
-  {% include 'modulos/_navbar.html' %}
+  <body>
+    {% include 'partials/_navbar.html' %}
 
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-xs-12 ng-view"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 ng-view"></div>
+      </div>
     </div>
-  </div>
 
-  {% include 'modulos/_javascripts.html' %}
-</body>
+    {% include 'partials/_javascripts.html' %}
+  </body>
 </html>

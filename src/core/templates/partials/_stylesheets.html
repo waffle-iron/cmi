@@ -1,0 +1,14 @@
+{% load compress %}
+{% load staticfiles %}
+
+{% compress css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/cmi.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/material.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/ripples.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/ngDialog.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/ngDialog-theme-default.min.css' %}" />
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/snackbar.min.css' %}" />
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+{% endcompress %}

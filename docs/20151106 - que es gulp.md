@@ -59,7 +59,7 @@ definidas. _Si, me gusta el concepto_.
 Dice el tutorial que estoy leyendo[^4] que esto es una reminicencia del encadenamiento de jQuery que aplica un conjunto
  de acción en orden secuencial.
 
-```pyhon
+```python
 $("#element").text("hello world!").addClass("myclass").fadeIn();
 ```
 
