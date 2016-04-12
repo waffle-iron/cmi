@@ -10,20 +10,38 @@
 __author__ = 'Javier Sanchez Toledano'
 
 from unipath import Path
+from os import environ
 
 PROJECT_DIR = Path(__file__).ancestor(3)
+
 MEDIA_ROOT = PROJECT_DIR.child("media")
-STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+
+STATIC_URL = '/static/'
 STATIC_ROOT = PROJECT_DIR.child("static")
 STATICFILES_DIRS = (
     "assets",
+    "core/assets"
 )
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+COMPRESS_ENABLED = environ.get('COMPRESS_ENABLED', False)
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -43,6 +61,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'compressor',
+    'rest_framework',
 
     'core'
 )

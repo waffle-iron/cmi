@@ -1,22 +1,7 @@
 {
   "name": "cmi",
-  "version": "2.0.0",
-  "homepage": "https://github.com/SGC-Tlaxcala/cmi_core",
-  "authors": [
-    "Javier Sanchez Toledano <js.toledano@me.com>"
-  ],
-  "description": "Núcleo del Cuadro de Mando Integral 2.0",
-  "main": "",
-  "moduleType": [
-    "globals"
-  ],
-  "keywords": [
-    "django",
-    "angularjs",
-    "postgresql",
-    "npm",
-    "bootstrap"
-  ],
+  "version": "0.0.0",
+  "homepage": "https://github.com/jstoledano/cmi",
   "license": "MIT",
   "ignore": [
     "**/.*",
@@ -25,16 +10,19 @@
     "test",
     "tests"
   ],
-  "devDependencies": {
-    "angular": "~1.4.7",
-    "angular-route": "~1.4.7",
-    "angular-cookies": "~1.4.7",
-    "jquery": "~2.1.4",
-    "ng-dialog": "ngDialog#~0.5.5",
-    "underscore": "~1.8.3"
-  },
   "dependencies": {
-    "bootstrap-sass": "bootstrap-sass-official#~3.3.5",
-    "font-awesome": "fontawesome#~4.4.0"
+    "angular": "~1.3.1",
+    "angular-route": "~1.3.1",
+    "angular-cookies": "~1.3.1",
+    "bootstrap": "~3.3.0",
+    "bootstrap-material-design": "~0.1.5",
+    "jquery": "~2.1.1",
+    "ngDialog": "~0.3.3",
+    "underscore": "~1.7.0"
+  },
+  "devDependencies": {
+    "snackbarjs": "~1.1.0",
+    "font-awesome": "~4.5.0",
+    "bootstrap-sass": "~3.3.6"
   }
 }
