@@ -11,6 +11,8 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.generic.base import TemplateView
 
 from rest_framework import permissions, viewsets
+from rest_framework import status, views
+from rest_framework.response import Response
 
 from .models import Pipol
 from .permissions import IsPipolOwner

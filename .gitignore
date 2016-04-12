@@ -1,7 +1,7 @@
 # Toledano
 bower_components/
 node_modules/
-assets/
+src/assets/
 src/sources/tmp/
 data/
 .idea/
