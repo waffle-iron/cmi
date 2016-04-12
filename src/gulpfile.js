@@ -99,7 +99,7 @@ gulp.task('scripts', function() {
 
 // la tarea watch
  gulp.task('watch', function() {
-  gulp.watch(config.sassPath + '/**/*.scss', ['css']); 
+  gulp.watch(config.sassPath + '/**/*.scss', ['sass']); 
 });
 
 // la tarea `default`
