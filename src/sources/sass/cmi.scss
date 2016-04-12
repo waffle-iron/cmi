@@ -21,3 +21,11 @@ $colHighlight   : $rgba-primary-2;
   padding: 40px 15px;
   text-align: center;
 }
+
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  /* height: 60px; */
+  background-color: $rgba-primary-2;
+}
