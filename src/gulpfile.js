@@ -46,10 +46,10 @@ gulp.task('angular', function(){
 // tarea fuentes
 gulp.task('fuentes', function(){
   gulp.src([
-    config.sourcesDir + '/css/styles.css',
     config.bowerDir +   '/bootstrap-material-design/dist/css/*.min.css',
     config.bowerDir +   '/ngDialog/css/*.min.css',
-    config.bowerDir +   '/snackbarjs/dist/*.min.css'
+    config.bowerDir +   '/snackbarjs/dist/*.min.css',
+    config.sourcesDir + '/css/styles.css'
   ]).pipe(gulp.dest('./assets/css'));
 
   // javascript
@@ -57,7 +57,7 @@ gulp.task('fuentes', function(){
       config.sourcesDir + '/js/**/*.js',
       config.bowerDir +   '/jquery/dist/jquery.min.js',
       config.bowerDir +   '/bootstrap/dist/js/*.min.js',
-      config.bowerDir +   '/bootstrap-material-design/dist/js/*.min.js',
+      // config.bowerDir +   '/bootstrap-material-design/dist/js/*.min.js',
       config.bowerDir +   '/underscore/*min.js',
       config.bowerDir +   '/angular-route/*.min.js',
       config.bowerDir +   '/ngDialog/js/*.min.js',
@@ -74,7 +74,8 @@ gulp.task('sass', function() { 
     loadPath: [
       config.sassPath,
       config.bowerDir + '/bootstrap-sass/assets/stylesheets',
-      config.bowerDir + '/font-awesome/scss',
+      config.bowerDir + '/bootstrap-material-design/sass',
+      config.bowerDir + '/font-awesome/scss'
     ]
   })
   .on("error", notify.onError(function (error) {
