@@ -2,20 +2,11 @@
 @import url(http://fonts.googleapis.com/css?family=Noto+Sans:400,700,300);
 $font-family-base: 'Noto Sans', sans-serif;
 
+
 // Import bootstrap and fontawesome
 @import "_bootstrap";
 @import "font-awesome";
-
-$rgba-primary-0: rgba(141, 93,141,1);	/* Main Primary color */
-$rgba-primary-1: rgba(255,255,255,1);
-$rgba-primary-2: rgba(180,162,180,1);
-$rgba-primary-3: rgba(112, 36,112,1);
-$rgba-primary-4: rgba(102,  0,102,1);
-
-$bgDefault      : $rgba-primary-0;
-$bgHighlight    : $rgba-primary-1;
-$brand-primary  : $rgba-primary-3;
-$colHighlight   : $rgba-primary-2;
+@import "bootstrap-material-design";
 
 html, body {
   min-height: 100%;
@@ -31,7 +22,12 @@ html, body {
   bottom: 0;
   width: 100%;
   margin: 0 auto -110px;
-  padding: 20px 0;
+  padding: 60px 0 20px;
   background-color: $gray-darker;
-  color: $text-muted;
+  color: $blue-grey-100;
+}
+
+
+.navbar-ine {
+  background-color: $purple-600;
 }
