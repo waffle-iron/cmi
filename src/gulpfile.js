@@ -57,7 +57,7 @@ gulp.task('fuentes', function(){
       config.sourcesDir + '/js/**/*.js',
       config.bowerDir +   '/jquery/dist/jquery.min.js',
       config.bowerDir +   '/bootstrap/dist/js/*.min.js',
-      // config.bowerDir +   '/bootstrap-material-design/dist/js/*.min.js',
+      config.bowerDir +   '/bootstrap-material-design/dist/js/*.min.js',
       config.bowerDir +   '/underscore/*min.js',
       config.bowerDir +   '/angular-route/*.min.js',
       config.bowerDir +   '/ngDialog/js/*.min.js',

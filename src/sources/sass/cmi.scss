@@ -4,9 +4,9 @@ $font-family-base: 'Noto Sans', sans-serif;
 
 
 // Import bootstrap and fontawesome
-@import "_bootstrap";
-@import "font-awesome";
+@import "bootstrap";
 @import "bootstrap-material-design";
+@import "font-awesome";
 
 html, body {
   min-height: 100%;
