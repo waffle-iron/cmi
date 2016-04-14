@@ -105,4 +105,4 @@ gulp.task('scripts', function() {
 
 // la tarea `default`
 //   gulp.task('default', ['bower', 'icons', 'angular', 'css', 'scripts']);
-gulp.task('default', ['fuentes', 'sass', 'angular'])
+gulp.task('default', ['fuentes', 'icons', 'sass', 'angular'])
