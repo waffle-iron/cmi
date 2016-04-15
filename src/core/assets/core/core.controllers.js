@@ -10,8 +10,7 @@
     .controller('RegisterController', RegisterController)
     .controller('DemoController', DemoController);
 
-  // DemoController.$inject = [];
-
+  DemoController.$inject = ['$scope'];
   function DemoController(){
     this.label = "Estoy enlazado desde la aplicación de AngularJS";
   }
