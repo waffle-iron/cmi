@@ -3,9 +3,11 @@
 
   angular
     .module('core.config')
-    .config(config);
+    .config(config)
+    .config(django);
 
   config.$inject = ['$locationProvider'];
+  django.$inject = ['$interpolateProvider']
 
   /**
   * @name config
@@ -14,5 +16,10 @@
   function config($locationProvider) {
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('!');
+  }
+
+  function django($interpolateProvider) {
+    $interpolateProvider.startSymbol('{$');
+    $interpolateProvider.endSymbol('$}');
   }
 })();

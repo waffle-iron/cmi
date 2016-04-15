@@ -94,8 +94,9 @@
               </div>
               <div class="card-body">
                 <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry.
+                  <div ng-controller="DemoController as demo">
+                    {$ demo.label $}
+                  </div>
                 </p>
               </div>
               <footer class="card-footer">
