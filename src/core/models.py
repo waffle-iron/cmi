@@ -210,15 +210,17 @@ class Pipol(AbstractBaseUser, PermissionsMixin):
 
 class Politica(TimeStampedModel):
     revision = models.PositiveSmallIntegerField("Revisión")
-    fecha = models.DateField("Fecha", help_text="Fecha de aprobación de la revisión")
-    politica = models.TextField("Política", help_text="Contenido de la poítica de la calidad")
+    fecha = models.DateField(
+        "Fecha",
+        help_text="Fecha de aprobación de la revisión")
+    politica = models.TextField(
+        "Política",
+        help_text="Contenido de la poítica de la calidad")
 
     class Meta:
         verbose_name = 'Política'
         verbose_name_plural = 'Políticas'
+        get_latest_by = 'id'
 
     def __str__(self):
         return "%02d - %s" % (self.revision, self.fecha)
-
-    def actual(self):
-        return self.objects.latest('id')
