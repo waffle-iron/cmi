@@ -13,7 +13,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.utils.translation import gettext as _
 
-from .models import Pipol
+from .models import Pipol, Politica
 
 
 class PipolChangeForm(UserChangeForm):
@@ -66,4 +66,9 @@ class PipolAdmin(UserAdmin):
     )
 
 
+class PoliticaAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(Pipol, PipolAdmin)
+admin.site.register(Politica, PoliticaAdmin)
