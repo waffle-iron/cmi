@@ -219,3 +219,6 @@ class Politica(TimeStampedModel):
 
     def __str__(self):
         return "%02d - %s" % (self.revision, self.fecha)
+
+    def actual(self):
+        return self.objects.latest('id')
