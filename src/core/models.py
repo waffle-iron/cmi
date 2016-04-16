@@ -214,9 +214,6 @@ class Politica(TimeStampedModel):
     politica = models.TextField("Política", help_text="Contenido de la poítica de la calidad")
 
     class Meta:
-        app_label = 'politica'
-        get_latest_by = 'id'
-        ordering = '-id'
         verbose_name = 'Política'
         verbose_name_plural = 'Políticas'
 
