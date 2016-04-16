@@ -66,6 +66,18 @@ PUESTOS = (
 )
 
 
+class TimeStampedModel(models.Model):
+    """
+    Es una clase abstracta basada en la clase Model que proporciona
+    campos ``creacion``y ``actualizacion`` que se actualizan automáticamente.
+    """
+    creado = models.DateTimeField(auto_now_add=True)
+    modificado = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
 class PipolManager(BaseUserManager):
     use_in_migrations = True
 
