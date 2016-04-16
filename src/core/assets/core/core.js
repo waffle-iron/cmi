@@ -13,7 +13,7 @@
     run.$inject = ['$http'];
 
   angular
-      .module('core.config', []);
+      .module('core.config', [] );
 
   angular
       .module('core.routes', ['ngRoute']);
