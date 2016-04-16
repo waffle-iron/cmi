@@ -64,3 +64,9 @@ class Index(TemplateView):
     @method_decorator(ensure_csrf_cookie)
     def dispatch(self, *args, **kwargs):
         return super(Index, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        from datetime import date
+        context = super(Index, self).get_context_data(**kwargs)
+        context['hoy'] = date.today().strftime("%Y%m%d")
+        return context

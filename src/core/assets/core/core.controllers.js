@@ -7,7 +7,13 @@
 
   angular
     .module('core.controllers', [])
-    .controller('RegisterController', RegisterController);
+    .controller('RegisterController', RegisterController)
+    .controller('DemoController', DemoController);
+
+  DemoController.$inject = ['$scope'];
+  function DemoController(){
+    this.label = "Estoy enlazado desde la aplicación de AngularJS";
+  }
 
   RegisterController.$inject = ['$location', '$scope', 'Authentication'];
 

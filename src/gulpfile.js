@@ -46,10 +46,10 @@ gulp.task('angular', function(){
 // tarea fuentes
 gulp.task('fuentes', function(){
   gulp.src([
-    config.sourcesDir + '/css/styles.css',
     config.bowerDir +   '/bootstrap-material-design/dist/css/*.min.css',
     config.bowerDir +   '/ngDialog/css/*.min.css',
-    config.bowerDir +   '/snackbarjs/dist/*.min.css'
+    config.bowerDir +   '/snackbarjs/dist/*.min.css',
+    config.sourcesDir + '/css/styles.css'
   ]).pipe(gulp.dest('./assets/css'));
 
   // javascript
@@ -74,7 +74,8 @@ gulp.task('sass', function() { 
     loadPath: [
       config.sassPath,
       config.bowerDir + '/bootstrap-sass/assets/stylesheets',
-      config.bowerDir + '/font-awesome/scss',
+      config.bowerDir + '/bootstrap-material-design/sass',
+      config.bowerDir + '/font-awesome/scss'
     ]
   })
   .on("error", notify.onError(function (error) {
@@ -104,4 +105,4 @@ gulp.task('scripts', function() {
 
 // la tarea `default`
 //   gulp.task('default', ['bower', 'icons', 'angular', 'css', 'scripts']);
-gulp.task('default', ['fuentes', 'sass', 'angular'])
+gulp.task('default', ['fuentes', 'icons', 'sass', 'angular'])
