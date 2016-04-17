@@ -13,9 +13,12 @@ from django.db.models import Max
 
 from rest_framework import permissions, viewsets
 from rest_framework import status, views
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, detail_route
+
+from rest_framework_nested import routers
 
 from .models import Pipol, Politica
 from .permissions import IsPipolOwner
@@ -72,20 +75,30 @@ class Index(TemplateView):
         from datetime import date
         context = super(Index, self).get_context_data(**kwargs)
         context['hoy'] = date.today().strftime("%Y%m%d")
+        router = routers.SimpleRouter()
+        router.register(r'actual', actual, base_name='actual')
+        context['router'] = router.urls
         return context
 
 
-class PoliticaActual(TemplateView):
-    template_name = 'index.html'
+# class PoliticaActual(TemplateView):
+#     template_name = 'index.html'
+#
+#     def get_context_data(self, **kwargs):
+#         from core.models import Politica
+#         p = Politica.objects.latest()
+#         cnx = super(PoliticaActual, self).get_context_data(**kwargs)
+#         cnx['politica'] = p
+#         return cnx
 
-    def get_context_data(self, **kwargs):
-        from core.models import Politica
-        p = Politica.objects.latest()
-        cnx = super(PoliticaActual, self).get_context_data(**kwargs)
-        cnx['politica'] = p
-        return cnx
+@api_view()
+def actual(request):
+    json = PoliticaSerializer(Politica.objects.latest())
+    return json.data
 
 
 class PoliticaViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Politica.objects.order_by('-id').all()
     serializer_class = PoliticaSerializer
+
+
