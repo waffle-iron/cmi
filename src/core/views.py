@@ -9,25 +9,21 @@
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.generic.base import TemplateView
-from django.db.models import Max
 
-from rest_framework import permissions, viewsets
-from rest_framework import status, views
-from rest_framework import generics
+from rest_framework import permissions, status, viewsets
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.decorators import api_view, detail_route
-
 from rest_framework_nested import routers
 
 from .models import Pipol, Politica
 from .permissions import IsPipolOwner
-from .serializers import PipolSerializer, UserSerializer, PoliticaSerializer
+from .serializers import PipolSerializer, PoliticaSerializer, UserSerializer
 
 
 class UserViewSets(viewsets.ModelViewSet):
     """
-    Punto de contacto para la API que permite que los usuarios puedan verse y editarse.
+    Punto de contacto para la API que permite que los usuarios
+    puedan verse y editarse.
     """
     queryset = Pipol.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
@@ -100,5 +96,3 @@ def actual(request):
 class PoliticaViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Politica.objects.order_by('-id').all()
     serializer_class = PoliticaSerializer
-
-
