@@ -9,14 +9,17 @@
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.generic.base import TemplateView
+from django.db.models import Max
 
 from rest_framework import permissions, viewsets
 from rest_framework import status, views
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.decorators import api_view
 
-from .models import Pipol
+from .models import Pipol, Politica
 from .permissions import IsPipolOwner
-from .serializers import PipolSerializer, UserSerializer
+from .serializers import PipolSerializer, UserSerializer, PoliticaSerializer
 
 
 class UserViewSets(viewsets.ModelViewSet):
@@ -70,3 +73,19 @@ class Index(TemplateView):
         context = super(Index, self).get_context_data(**kwargs)
         context['hoy'] = date.today().strftime("%Y%m%d")
         return context
+
+
+class PoliticaActual(TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        from core.models import Politica
+        p = Politica.objects.latest()
+        cnx = super(PoliticaActual, self).get_context_data(**kwargs)
+        cnx['politica'] = p
+        return cnx
+
+
+class PoliticaViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Politica.objects.order_by('-id').all()
+    serializer_class = PoliticaSerializer
