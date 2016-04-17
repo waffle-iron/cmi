@@ -6,11 +6,12 @@
 #  __author__: toledano
 #       fecha: oct 24, 2015
 
+from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.generic.base import TemplateView
 
-from rest_framework import permissions, status, viewsets
+from rest_framework import permissions, status, views, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework_nested import routers
@@ -77,20 +78,17 @@ class Index(TemplateView):
         return context
 
 
-# class PoliticaActual(TemplateView):
-#     template_name = 'index.html'
-#
-#     def get_context_data(self, **kwargs):
-#         from core.models import Politica
-#         p = Politica.objects.latest()
-#         cnx = super(PoliticaActual, self).get_context_data(**kwargs)
-#         cnx['politica'] = p
-#         return cnx
-
 @api_view()
 def actual(request):
     json = PoliticaSerializer(Politica.objects.latest())
-    return json.data
+    return JsonResponse(json.data)
+
+
+class PoliticaActual(viewsets.ViewSetMixin, views.APIView):
+
+    def get(self, request, *args, **kwargs):
+        json = PoliticaSerializer(Politica.objects.latest())
+        return JsonResponse(json)
 
 
 class PoliticaViewSet(viewsets.ReadOnlyModelViewSet):
