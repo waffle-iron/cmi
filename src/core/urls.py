@@ -6,13 +6,16 @@ from .views import (
     PipolViewSet,
     Index,
     UserViewSets,
-    PoliticaViewSet
+    PoliticaViewSet,
+    actual
 )
 
 router = routers.SimpleRouter()
 router.register(r'pipols', PipolViewSet)
 router.register(r'users', UserViewSets)
 router.register(r'politica', PoliticaViewSet)
+router.register(r'actual', actual, base_name='actual')
+
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
