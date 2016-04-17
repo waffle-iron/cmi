@@ -65,7 +65,7 @@ class GroupSerializer(serializers.ModelSerializer):
         fields = ('url', 'name')
 
 
-class PoliticaSerializer(serializers.HyperlinkedModelSerializer):
+class PoliticaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Politica
         fields = ('revision', 'fecha', 'politica')
