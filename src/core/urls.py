@@ -8,20 +8,20 @@ from .views import (
     UserViewSets,
     PoliticaActual,
     PoliticaViewSet,
-    actual
+    # actual
 )
 
 router = routers.DefaultRouter()
-router.register(r'pipols', PipolViewSet)
-router.register(r'users', UserViewSets)
-router.register(r'politica', PoliticaViewSet)
-router.register(r'actual', PoliticaActual.as_view({'get': 'list'}), base_name='actual')
-
+router.register(r'v1.0/pipols', PipolViewSet)
+router.register(r'v1.0/users', UserViewSets)
+router.register(r'v1.0/politica', PoliticaViewSet)
+router.register(r'v1.0/actual', PoliticaActual, base_name='actual')
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api-auth/', include(
         'rest_framework.urls', namespace='rest_framework')),
+    # url(r'^api/v1.0/actual/', actual, name='actual'),
     url(r'^api/', include(router.urls)),
     url(r'^$', Index.as_view(), name='index'),
 ]
