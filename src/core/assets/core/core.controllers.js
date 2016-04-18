@@ -7,31 +7,13 @@
 
   angular
     .module('core.controllers', [])
-    .controller('RegisterController', RegisterController)
-    .controller('DemoController', DemoController);
+      .controller('PoliticaController', PoliticaController);
 
-  DemoController.$inject = ['$scope'];
-  function DemoController(){
-    this.label = "Estoy enlazado desde la aplicación de AngularJS";
-  }
-
-  RegisterController.$inject = ['$location', '$scope', 'Authentication'];
-
-  /**
-  * @namespace RegisterController
-  */
-  function RegisterController($location, $scope, Authentication) {
-    var vm = this;
-
-    vm.register = register;
-
-    /**
-    * @name register
-    * @desc Register a new user
-    * @memberOf core.controllers.RegisterController
-    */
-    function register() {
-      Authentication.register(vm.email, vm.password, vm.username);
-    }
+  PoliticaController.$inject = ['$scope'];
+  function PoliticaController($scope, $hello) {
+    $http.get('http://localhost:8000/api/v1.0/actual/').
+      success(function(data){
+        $scope.politica = data;
+      });
   }
 })();
