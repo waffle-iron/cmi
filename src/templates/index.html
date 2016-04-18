@@ -18,22 +18,21 @@
           <div class="jumbotron">
             <img src="{% static 'core/img/ine.png' %}" class="center-block">
             <h1 class="text-center">Sistema de Gestión de la Calidad</h1>
-            <p>{{ politica }}</p>
           </div>
-          <div class="page-header">
-            <h1><i class="fa fa-shield"></i> Política de la Calidad <small>Revisión: 04 (marzo 07, 2016)</small></h1>
-          </div>
-          <div class="well well-lg">
-            <p class="lead">
-              Quienes trabajamos en el Instituto Nacional Electoral en Tlaxcala nos comprometemos
-              a <mark>garantizar el ejercicio de los derechos político-electorales</mark> al ofrecer un
-              servicio de calidad en la atención ciudadana, tramitar y entregar la credencial para
-              votar con fotografía, usar eficientemente los recursos, y cumplir la normatividad y
-              metas institucionales, realizando <mark>nuestras labores</mark> con enfoque de mejora continua y
-              de trabajo en equipo, en estricto apego a los principios rectores de: certeza,
-              legalidad, independencia, imparcialidad, máxima publicidad y objetividad; y dando
-              cumplimiento a la Norma <mark>ISO 9001</mark>.
-            </p>
+          <div id=""politica" ng-controller="PoliticaController">
+            <div class="page-header">
+              <h1>
+                <i class="fa fa-shield"></i>
+                Política de la Calidad
+                <small>Revisión: {$ politica.revision $}
+                  ({$ politica.fecha $})</small>
+              </h1>
+            </div>
+            <div class="well well-lg">
+              <p class="lead">
+                {$ politica.politica $}
+              </p>
+            </div>
           </div>
         </div>
       </div>
