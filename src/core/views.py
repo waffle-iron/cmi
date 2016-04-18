@@ -91,6 +91,6 @@ class PoliticaActual(viewsets.ViewSetMixin, views.APIView):
         return JsonResponse(json)
 
 
-class PoliticaViewSet(viewsets.ReadOnlyModelViewSet):
+class PoliticaViewSet(viewsets.ModelViewSet):
     queryset = Politica.objects.order_by('-id').all()
     serializer_class = PoliticaSerializer
