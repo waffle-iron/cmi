@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% load staticfiles%}
 
-{% block post-javascript %}
+{% block frontend %}
+  {% include 'partials/_angularjs.html' %}
+{% endblock frontend %}
+
+{% block post_javascript %}
 <script>
   $(function() {
     $('.material-card > .mc-btn-action').click(function () {
@@ -28,7 +32,7 @@
     });
   });
 </script>
-{% endblock %}
+{% endblock post_javascript %}
 
 {% block content %}
 <div class="container">
@@ -38,18 +42,17 @@
         <img src="{% static 'core/img/ine.png' %}" class="center-block">
         <h1 class="text-center">Sistema de Gestión de la Calidad</h1>
       </div>
-      <div id=""politica" ng-controller="PoliticaController">
+      <div id="politica" ng-controller="PoliticController as pol">
         <div class="page-header">
           <h1>
             <i class="fa fa-shield"></i>
             Política de la Calidad
-            <small>Revisión: {$ politica.revision $}
-              ({$ politica.fecha | date: "MMMM dd, yyyy" $})</small>
+            <small>Revisión: </small>
           </h1>
         </div>
         <div class="well well-lg">
           <p class="lead">
-            {$ politica.politica $}
+            {$ pol.label $}
           </p>
         </div>
       </div>
