@@ -5,12 +5,12 @@
 'use strict';
 
 var cmi;
-cmi = angular.module('cmiApp', [])
+cmi = angular.module('cmiApp',
+  [
+    'ngResource',
+    'core.controllers'
+  ])
   .config(function ($interpolateProvider) {
     $interpolateProvider.startSymbol('{$');
     $interpolateProvider.endSymbol('$}');
   });
-
-cmi.controller('PoliticController', function(){
-  this.label = "Esta es mi política";
-});
