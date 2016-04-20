@@ -53,6 +53,12 @@
         <div class="well well-lg">
           <p class="lead">
             {$ politica.politica $}
+            <hr>
+            <ul>
+              <li ng-repeat="p in PoliticsFactory">
+                <span>{$ p.revision $}</span>
+              </li>
+            </ul>
           </p>
         </div>
       </div>
