@@ -62,7 +62,7 @@ class PipolViewSet(viewsets.ModelViewSet):
 
 
 class Index(TemplateView):
-    template_name = 'index.html'
+    template_name = 'core/index.html'
 
     @method_decorator(ensure_csrf_cookie)
     def dispatch(self, *args, **kwargs):
@@ -72,9 +72,6 @@ class Index(TemplateView):
         from datetime import date
         context = super(Index, self).get_context_data(**kwargs)
         context['hoy'] = date.today().strftime("%Y%m%d")
-        router = routers.SimpleRouter()
-        router.register(r'actual', actual, base_name='actual')
-        context['router'] = router.urls
         return context
 
 
