@@ -39,8 +39,14 @@ gulp.task('icons', function() { 
 
 // tarea angular
 gulp.task('angular', function(){
-  gulp.src([config.angularDir + '/angular.js'])
-    .pipe(gulp.dest('./assets/js'));
+  gulp.src([
+    config.angularDir + '/angular.js',
+    config.bowerDir +   '/angular-route/*.min.js',
+    config.bowerDir +   '/ngDialog/js/*.min.js',
+    config.bowerDir +   '/angular-cookies/*.min.js',
+    config.bowerDir +   '/angular-i18n/angular-locale_es-mx.js'
+    config.bowerDir +   '/angular-resource/angular-resource.min.js'
+  ]).pipe(gulp.dest('./assets/js'));
 });
 
 // tarea fuentes
@@ -61,11 +67,7 @@ gulp.task('javascript', function() {
     config.bowerDir +   '/bootstrap/dist/js/*.min.js',
     config.bowerDir +   '/bootstrap-material-design/dist/js/*.min.js',
     config.bowerDir +   '/underscore/*min.js',
-    config.bowerDir +   '/angular-route/*.min.js',
-    config.bowerDir +   '/ngDialog/js/*.min.js',
-    config.bowerDir +   '/angular-cookies/*.min.js',
     config.bowerDir +   '/snackbarjs/dist/*.min.js',
-    config.bowerDir +   '/angular-i18n/angular-locale_es-mx.js'
   ]).pipe(gulp.dest('./assets/js'));
 });
 
