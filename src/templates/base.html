@@ -10,13 +10,19 @@
   <body {% block body-tag %}{% endblock %}>
     {% block pre-navbar %}{% endblock %}
     {% include 'partials/_navbar.html' %}
+
     {% block pre-content %}{% endblock %}
     {% block content %}{% endblock %}
     {% block post-content %}{% endblock %}
+
     {% block pre-footer %}{% endblock %}
     {% include 'partials/_footer.html' %}
     {% block post-footer %}{% endblock %}
-    {% include 'partials/_javascripts.html' %}
+
+    {% include 'partials/_bootstrap.js.html' %}
+    {% block frontend %}
+      {% include 'partials/_angularjs.html' %}
+    {% endblock frontend %}
     {% block post_javascript %}{% endblock %}
   </body>
 </html>
