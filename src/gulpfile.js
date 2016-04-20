@@ -105,6 +105,7 @@ gulp.task('scripts', function() {
 // la tarea watch
  gulp.task('watch', function() {
   gulp.watch(config.sassPath + '/**/*.scss', ['sass']); 
+  gulp.watch(config.sourcesDir + '/js/**/*.js', ['javascript'])
 });
 
 // la tarea `default`
