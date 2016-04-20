@@ -23,6 +23,7 @@
   "devDependencies": {
     "snackbarjs": "~1.1.0",
     "font-awesome": "~4.5.0",
-    "bootstrap-sass": "~3.3.6"
+    "bootstrap-sass": "~3.3.6",
+    "angular-i18n": "^1.5.5"
   }
 }
