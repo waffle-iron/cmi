@@ -1,0 +1,22 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html data-ng-app="CMIapp">
+  <head>
+    <title>{% block html-title %}Cuadro de Mando Integral{% endblock html-title %}</title>
+    <base href="/" />
+    {% include 'partials/_stylesheets.html' %}
+    {% block html_head %}{% endblock %}
+  </head>
+  <body {% block body-tag %}{% endblock %}>
+    {% block pre-navbar %}{% endblock %}
+    {% include 'partials/_navbar.html' %}
+    {% block pre-content %}{% endblock %}
+    {% block content %}{% endblock %}
+    {% block post-content %}{% endblock %}
+    {% block pre-footer %}{% endblock %}
+    {% include 'partials/_footer.html' %}
+    {% block post-footer %}{% endblock %}
+    {% include 'partials/_javascripts.html' %}
+    {% block post_javascript %}{% endblock %}
+  </body>
+</html>
