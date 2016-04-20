@@ -44,27 +44,29 @@ gulp.task('angular', function(){
 });
 
 // tarea fuentes
-gulp.task('fuentes', function(){
+gulp.task('fuentes', function() {
   gulp.src([
-    config.bowerDir +   '/bootstrap-material-design/dist/css/*.min.css',
-    config.bowerDir +   '/ngDialog/css/*.min.css',
-    config.bowerDir +   '/snackbarjs/dist/*.min.css',
+    config.bowerDir + '/bootstrap-material-design/dist/css/*.min.css',
+    config.bowerDir + '/ngDialog/css/*.min.css',
+    config.bowerDir + '/snackbarjs/dist/*.min.css',
     config.sourcesDir + '/css/styles.css'
   ]).pipe(gulp.dest('./assets/css'));
+});
 
+gulp.task('javascript', function() {
   // javascript
   gulp.src([
-      config.sourcesDir + '/js/**/*.js',
-      config.bowerDir +   '/jquery/dist/jquery.min.js',
-      config.bowerDir +   '/bootstrap/dist/js/*.min.js',
-      config.bowerDir +   '/bootstrap-material-design/dist/js/*.min.js',
-      config.bowerDir +   '/underscore/*min.js',
-      config.bowerDir +   '/angular-route/*.min.js',
-      config.bowerDir +   '/ngDialog/js/*.min.js',
-      config.bowerDir +   '/angular-cookies/*.min.js',
-      config.bowerDir +   '/snackbarjs/dist/*.min.js'
+    config.sourcesDir + '/js/**/*.js',
+    config.bowerDir +   '/jquery/dist/jquery.min.js',
+    config.bowerDir +   '/bootstrap/dist/js/*.min.js',
+    config.bowerDir +   '/bootstrap-material-design/dist/js/*.min.js',
+    config.bowerDir +   '/underscore/*min.js',
+    config.bowerDir +   '/angular-route/*.min.js',
+    config.bowerDir +   '/ngDialog/js/*.min.js',
+    config.bowerDir +   '/angular-cookies/*.min.js',
+    config.bowerDir +   '/snackbarjs/dist/*.min.js',
+    config.bowerDir +   '/angular-i18n/angular-locale_es-mx.js'
   ]).pipe(gulp.dest('./assets/js'));
-
 });
 
 // tarea bootstrap
@@ -105,4 +107,4 @@ gulp.task('scripts', function() {
 
 // la tarea `default`
 //   gulp.task('default', ['bower', 'icons', 'angular', 'css', 'scripts']);
-gulp.task('default', ['fuentes', 'icons', 'sass', 'angular'])
+gulp.task('default', ['fuentes', 'javascript','icons', 'sass', 'angular'])
