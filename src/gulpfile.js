@@ -44,7 +44,7 @@ gulp.task('angular', function(){
     config.bowerDir +   '/angular-route/*.min.js',
     config.bowerDir +   '/ngDialog/js/*.min.js',
     config.bowerDir +   '/angular-cookies/*.min.js',
-    config.bowerDir +   '/angular-i18n/angular-locale_es-mx.js'
+    config.bowerDir +   '/angular-i18n/angular-locale_es-mx.js',
     config.bowerDir +   '/angular-resource/angular-resource.min.js'
   ]).pipe(gulp.dest('./assets/js'));
 });
