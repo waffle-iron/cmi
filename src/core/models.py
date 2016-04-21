@@ -220,7 +220,8 @@ class Politica(TimeStampedModel):
     class Meta:
         verbose_name = 'Política'
         verbose_name_plural = 'Políticas'
-        get_latest_by = 'id'
+        get_latest_by = 'revision'
+        ordering = ('-revision', )
 
     def __str__(self):
         return "%02d - %s" % (self.revision, self.fecha)
