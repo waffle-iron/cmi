@@ -18,7 +18,7 @@
 
   function PolicyFactory($resource) {
     return $resource(
-      "/api/v1.0/politica/?format=json",
+      "/api/v1.0/politica/",
       {},
       { 'get': {method: "GET", isArray: false}}
     );
