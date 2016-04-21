@@ -1,22 +1,33 @@
-angular.module('core.controllers', [])
-  .controller('PolicyController', PolicyController)
-  .factory("PolicyFactory", PolicyFactory);
+(function(){
+  "use strinct";
 
-PolicyFactory.$inject = ['$resource'];
+  angular.module('core.controllers', [])
+    .controller('CMIUtils', CMIUtils)
+    .controller('PolicyController', PolicyController)
+    .factory("PolicyFactory", PolicyFactory);
 
-function PolicyFactory($resource) {
-  return $resource(
-    "/api/v1.0/politica/?format=json",
-    {},
-    {get: {method: "GET", isArray: true}}
-  );
-}
+  CMIUtils.$inject = ['$scope', 'PolicyFactory']
+  PolicyController.$inject = ['$scope', '$http'];
+  PolicyFactory.$inject = ['$resource'];
 
+  function CMIUtils($scope, PolicyFactory) {
+    $scope.date = new Date();
+    var $politicas = PolicyFactory.get();
+    $scope.politicas = $politicas;
+  }
 
-function PolicyController($scope, PolicyFactory) {
-  $http.get('/api/v1.0/actual/')
-    .success(function (data) {
-      $scope.policy = data;
-  });
-}
+  function PolicyFactory($resource) {
+    return $resource(
+      "/api/v1.0/politica/?format=json",
+      {},
+      { 'get': {method: "GET", isArray: false}}
+    );
+  }
 
+  function PolicyController($scope, $http) {
+    $http.get('/api/v1.0/actual/')
+      .success(function (data) {
+        $scope.policy = data;
+    });
+  }
+})();

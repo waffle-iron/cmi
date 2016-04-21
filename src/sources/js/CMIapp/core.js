@@ -3,15 +3,14 @@
  */
 
 (function(){
-'use strict';
+  'use strict';
 
-angular.module('cmiApp',
-  [
-    'ngResource',
-    'core.controllers'
-  ])
-  .config(function ($interpolateProvider) {
-    $interpolateProvider.startSymbol('{$');
-    $interpolateProvider.endSymbol('$}');
-  });
+  angular.module('cmiApp', [
+      'ngResource',
+      'core.controllers'
+    ])
+    .config(function ($interpolateProvider) {
+      $interpolateProvider.startSymbol('{$');
+      $interpolateProvider.endSymbol('$}');
+    });
 })();
