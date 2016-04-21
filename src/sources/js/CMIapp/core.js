@@ -2,10 +2,10 @@
  * Created by INE on 20/04/2016.
  */
 
+(function(){
 'use strict';
 
-var cmi;
-cmi = angular.module('cmiApp',
+angular.module('cmiApp',
   [
     'ngResource',
     'core.controllers'
@@ -14,3 +14,4 @@ cmi = angular.module('cmiApp',
     $interpolateProvider.startSymbol('{$');
     $interpolateProvider.endSymbol('$}');
   });
+})();

@@ -1,20 +1,22 @@
 angular.module('core.controllers', [])
-  .controller('PoliticController', PoliticController)
-  .factory("PoliticsFactory", PoliticsFactory);
+  .controller('PolicyController', PolicyController)
+  .factory("PolicyFactory", PolicyFactory);
 
-// PoliticController.$inject = ['$scope', '$http'];
+PolicyFactory.$inject = ['$resource'];
 
-function PoliticController($scope, $http) {
+function PolicyFactory($resource) {
+  return $resource(
+    "/api/v1.0/politica/?format=json",
+    {},
+    {get: {method: "GET", isArray: true}}
+  );
+}
+
+
+function PolicyController($scope, PolicyFactory) {
   $http.get('/api/v1.0/actual/')
     .success(function (data) {
-      $scope.politica = data;
+      $scope.policy = data;
   });
 }
 
-function PoliticsFactory($resource) {
-  return $resource(
-    "http://localhost:8000/api/v1.0/politica/?format=json",
-    {},
-    {get: {method: "GET", isArray: true}}
-  )
-}
