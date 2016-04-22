@@ -42,22 +42,20 @@
         <img src="{% static 'core/img/ine.png' %}" class="center-block">
         <h1 class="text-center">Sistema de Gestión de la Calidad</h1>
       </div>
-      <div id="politica" ng-controller="PoliticController as pol">
+      <div id="politica" ng-controller="PolicyController">
         <div class="page-header">
           <h1>
             <i class="fa fa-shield"></i>
             Política de la Calidad
-            <small>Revisión: {$ politica.revision $} ({$ politica.fecha | date: "MMMM dd, yyyy" $})</small>
+            <small>Revisión: {$ policy.revision $} ({$ policy.fecha | date: "MMMM dd, yyyy" $})</small>
           </h1>
         </div>
         <div class="well well-lg">
           <p class="lead">
-            {$ politica.politica $}
+            {$ policy.politica $}
             <hr>
             <ul>
-              <li ng-repeat="p in PoliticsFactory">
-                <span>{$ p.revision $}</span>
-              </li>
+              <li ng-controller="CMIUtils">{$ politicas.results[0].politica $}</li>
             </ul>
           </p>
         </div>

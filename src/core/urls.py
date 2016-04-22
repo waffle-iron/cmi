@@ -11,7 +11,7 @@ from .views import (
     actual
 )
 
-router = routers.DefaultRouter()
+router = routers.SimpleRouter()
 router.register(r'v1.0/pipols', PipolViewSet)
 router.register(r'v1.0/users', UserViewSets)
 router.register(r'v1.0/politica', PoliticaViewSet)

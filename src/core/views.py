@@ -89,5 +89,5 @@ class PoliticaActual(viewsets.ViewSetMixin, views.APIView):
 
 
 class PoliticaViewSet(viewsets.ModelViewSet):
-    queryset = Politica.objects.order_by('-id').all()
+    queryset = Politica.objects.all()
     serializer_class = PoliticaSerializer

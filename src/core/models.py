@@ -215,12 +215,13 @@ class Politica(TimeStampedModel):
         help_text="Fecha de aprobación de la revisión")
     politica = models.TextField(
         "Política",
-        help_text="Contenido de la poítica de la calidad")
+        help_text="Contenido de la política de la calidad")
 
     class Meta:
         verbose_name = 'Política'
         verbose_name_plural = 'Políticas'
-        get_latest_by = 'id'
+        get_latest_by = 'revision'
+        ordering = ('-revision', )
 
     def __str__(self):
         return "%02d - %s" % (self.revision, self.fecha)
