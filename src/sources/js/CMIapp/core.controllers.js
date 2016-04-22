@@ -1,19 +1,18 @@
 (function(){
-  "use strinct";
+  "use strict";
 
   angular.module('core.controllers', [])
     .controller('CMIUtils', CMIUtils)
     .controller('PolicyController', PolicyController)
     .factory("PolicyFactory", PolicyFactory);
 
-  CMIUtils.$inject = ['$scope', 'PolicyFactory']
+  CMIUtils.$inject = ['$scope', 'PolicyFactory'];
   PolicyController.$inject = ['$scope', '$http'];
   PolicyFactory.$inject = ['$resource'];
 
   function CMIUtils($scope, PolicyFactory) {
     $scope.date = new Date();
-    var $politicas = PolicyFactory.get();
-    $scope.politicas = $politicas;
+    $scope.politicas = PolicyFactory.get();
   }
 
   function PolicyFactory($resource) {
