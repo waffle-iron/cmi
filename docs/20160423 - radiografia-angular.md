@@ -22,3 +22,21 @@ El alcance ---como cualquier otro objeto de JavaScript--- puede tener propiedade
 
 En el mundo de AngularJS, un objeto `$scope` es útil para colocar los valores de nuestros modelos, los cuales se presentan en la vista. Por ejemplo, si colocamos en el alcance el siguiente objeto: `$scope.saludo = 'Hola'` podemos acceder a su contenido en la plantilla usando la expresión `{$ $scope.saludo $}`.
 
+Todas las aplicaciones de AngularJS tienen por lo menos un alcance llamado `$rootScope` que se crea cuando agregamos la directiva `ng-app` a cualquier elemento de HTML. En otras palabras, cuando nuestra aplicación de AngularJS arranca se crea el `$rootScope` de forma automática. Luego, conforme vamos agregando a los distintos elementos las directivas `ng-controller`, se crean alcances _hijos_ que heredan las propiedades de `$rootScope`. Incluso, podemos anidar los alcances colocando una directiva `ng-controller` dentro de otra. Veamos el siguiente ejemplo: 
+
+```html5
+<div ng-app> <!-- se crea el $rootScope -->
+  <div ng-controller="ControllerExterior"> 
+    <!-- se crea un alcance (llamado alcance 1) que hereda de $rootScope -->
+    <div ng-controller="ControllerInterior">
+      <!-- se crea un alcance hijo (llamado alcance 2) que hereda desde el alcance 2 -->
+    </div>
+  </div>
+</div>
+```
+
+`$rootScope` es la madre de todos los alcances y como resultado, todas sus propiedades están disponibles de forma implícita en el alcance 2. De igual forma, el alcance 2 tiene acceso a todas las propiedades del alcance 1.
+
+---
+
+Esto es todo por el momento en lo que se refiere al alcance, pero lo que sigue es muy interesante: como usar AngularJS y Django al mismo tiempo.
