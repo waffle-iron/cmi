@@ -66,6 +66,18 @@ PUESTOS = (
 )
 
 
+class TimeStampedModel(models.Model):
+    """
+    Es una clase abstracta basada en la clase Model que proporciona
+    campos ``creacion``y ``actualizacion`` que se actualizan automáticamente.
+    """
+    creado = models.DateTimeField(auto_now_add=True)
+    modificado = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
 class PipolManager(BaseUserManager):
     use_in_migrations = True
 
@@ -194,3 +206,22 @@ class Pipol(AbstractBaseUser, PermissionsMixin):
             return False
         else:
             return True
+
+
+class Politica(TimeStampedModel):
+    revision = models.PositiveSmallIntegerField("Revisión")
+    fecha = models.DateField(
+        "Fecha",
+        help_text="Fecha de aprobación de la revisión")
+    politica = models.TextField(
+        "Política",
+        help_text="Contenido de la política de la calidad")
+
+    class Meta:
+        verbose_name = 'Política'
+        verbose_name_plural = 'Políticas'
+        get_latest_by = 'revision'
+        ordering = ('-revision', )
+
+    def __str__(self):
+        return "%02d - %s" % (self.revision, self.fecha)

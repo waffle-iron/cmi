@@ -1,0 +1,17 @@
+{% load compress %}
+{% load staticfiles %}
+
+{% compress js %}
+<script type="text/javascript" src="{% static 'js/angular.js' %}"></script>
+<!-- script type="text/javascript" src="{% static 'js/angular-route.min.js' %}"></script -->
+<script type="text/javascript" src="{% static 'js/angular-resource.min.js' %}"></script>
+<!-- script type="text/javascript" src="{% static 'js/angular-cookies.min.js' %}"></script -->
+<!-- script type="text/javascript" src="{% static 'js/ngDialog.min.js' %}"></script -->
+<script type="text/javascript" src="{% static 'js/angular-locale_es-mx.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/snackbar.min.js' %}"></script>
+
+<!-- BEGIN CMIapp -->
+<script type="text/javascript" src="{% static 'js/cmiApp/core.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/cmiApp/core.controllers.js' %}"></script>
+<!-- END CMIapp -->
+{% endcompress %}

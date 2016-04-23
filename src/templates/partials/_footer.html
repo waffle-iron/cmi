@@ -1,0 +1,44 @@
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <h3 class="text-info">Sobre el SGC</h3>
+        <ul class="list-unstyled">
+          <li><i class="fa fa-home"></i> <a href="{% url 'index' %}">Portada</a></li>
+          <li><i class="fa fa-shield"></i> Política de la Calidad</li>
+          <li><i class="fa fa-bullseye"></i> Objetivos de la Calidad</li>
+          <li><i class="fa fa-book"></i> Documentación</li>
+          <li><i class="fa fa-line-chart"></i> Indicadores</li>
+          <li><i class="fa fa-flag-checkered"></i> Metas Institucionales</li>
+          <li><i class="fa fa-bug"></i> Control de Planes de Acción</li>
+          <li><i class="fa fa-users"></i> Base capINE</li>
+          <li><i class="fa fa-map-o"></i> Cartografía</li>
+          <hr>
+          <li><i class="fa fa-info-circle"></i> Sobre el Cuadro de Mando</li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h3 class="text-primary">Enlaces externos</h3>
+        <ul ng-controller="CMIUtils">
+          <li><i class="fa fa-external-link"></i> <a href="http://ine.mx">Instituto Nacional Electoral</a></li>
+          <li><i class="fa fa-newspaper-o"></i> <a href="http://www.emedios.com.mx/ine/documentos/ine/CarpetaDigital/{$ date| date:'yyyyMMdd' $}/01%20Carpeta%20Digital%20Completa.pdf">Síntesis Matutina de Prensa</a></li>
+        </ul>
+
+      </div>
+      <div class="col-lg-4">
+
+      </div>
+    </div>
+  </div>
+  <div class="ine-footer">
+    <div class="container">
+      <div  class="row">
+        <div class="col-xs-12">
+        <p>
+          Instituto Nacional Electoral &copy; 2016.
+        </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

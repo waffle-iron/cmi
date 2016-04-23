@@ -6,22 +6,25 @@
 #  __author__: toledano
 #       fecha: oct 24, 2015
 
+from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.generic.base import TemplateView
 
-from rest_framework import permissions, viewsets
-from rest_framework import status, views
+from rest_framework import permissions, status, views, viewsets
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework_nested import routers
 
-from .models import Pipol
+from .models import Pipol, Politica
 from .permissions import IsPipolOwner
-from .serializers import PipolSerializer, UserSerializer
+from .serializers import PipolSerializer, PoliticaSerializer, UserSerializer
 
 
 class UserViewSets(viewsets.ModelViewSet):
     """
-    Punto de contacto para la API que permite que los usuarios puedan verse y editarse.
+    Punto de contacto para la API que permite que los usuarios
+    puedan verse y editarse.
     """
     queryset = Pipol.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
@@ -59,7 +62,7 @@ class PipolViewSet(viewsets.ModelViewSet):
 
 
 class Index(TemplateView):
-    template_name = 'index.html'
+    template_name = 'core/index.html'
 
     @method_decorator(ensure_csrf_cookie)
     def dispatch(self, *args, **kwargs):
@@ -70,3 +73,21 @@ class Index(TemplateView):
         context = super(Index, self).get_context_data(**kwargs)
         context['hoy'] = date.today().strftime("%Y%m%d")
         return context
+
+
+@api_view()
+def actual(request):
+    json = PoliticaSerializer(Politica.objects.latest())
+    return JsonResponse(json.data)
+
+
+class PoliticaActual(viewsets.ViewSetMixin, views.APIView):
+
+    def get(self, request, *args, **kwargs):
+        json = PoliticaSerializer(Politica.objects.latest())
+        return JsonResponse(json)
+
+
+class PoliticaViewSet(viewsets.ModelViewSet):
+    queryset = Politica.objects.all()
+    serializer_class = PoliticaSerializer

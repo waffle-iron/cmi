@@ -9,7 +9,7 @@
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.models import Group
 from rest_framework import serializers
-from .models import Pipol
+from .models import Pipol, Politica
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -59,7 +59,13 @@ class PipolSerializer(serializers.ModelSerializer):
             return instance
 
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
+class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ('url', 'name')
+
+
+class PoliticaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Politica
+        fields = ('revision', 'fecha', 'politica')
