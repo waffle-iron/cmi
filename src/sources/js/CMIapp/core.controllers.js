@@ -2,15 +2,15 @@
   "use strict";
 
   angular.module('core.controllers', [])
-    .controller('CMIUtils', CMIUtils)
+    .controller('CMIUtilsController', CMIUtilsController)
     .controller('PolicyController', PolicyController)
     .factory("PolicyFactory", PolicyFactory);
 
-  CMIUtils.$inject = ['$scope', 'PolicyFactory'];
+  CMIUtilsController.$inject = ['$scope', 'PolicyFactory'];
   PolicyController.$inject = ['$scope', 'PolicyFactory'];
   PolicyFactory.$inject = ['$resource'];
 
-  function CMIUtils($scope, PolicyFactory) {
+  function CMIUtilsController($scope, PolicyFactory) {
     $scope.date = new Date();
     $scope.politicas = PolicyFactory.get();
   }
