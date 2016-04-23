@@ -1,4 +1,4 @@
-Title: Radiografía del alance en AngularJS
+Title: Radiografía del alcance en AngularJS
 Date: 2016-04-23 14:02:12
 Category: Desarollo Web
 Tags: angularjs, $scope,
