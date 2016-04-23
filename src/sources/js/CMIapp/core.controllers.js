@@ -7,7 +7,7 @@
     .factory("PolicyFactory", PolicyFactory);
 
   CMIUtils.$inject = ['$scope', 'PolicyFactory'];
-  PolicyController.$inject = ['$scope', '$http'];
+  PolicyController.$inject = ['$scope', 'PolicyFactory'];
   PolicyFactory.$inject = ['$resource'];
 
   function CMIUtils($scope, PolicyFactory) {
@@ -23,10 +23,9 @@
     );
   }
 
-  function PolicyController($scope, $http) {
-    $http.get('/api/v1.0/actual/')
-      .success(function (data) {
-        $scope.policy = data;
+  function PolicyController($scope, PolicyFactory) {
+    PolicyFactory.get(function(data){
+      $scope.policy = data.results[0];
     });
   }
 })();
