@@ -4,6 +4,7 @@
   angular.module('core.controllers', [])
     .controller('CMIUtilsController', CMIUtilsController)
     .controller('PolicyController', PolicyController)
+    .controller('PolicyDetailController', PolicyDetailController)
     .factory("PolicyFactory", PolicyFactory);
 
   CMIUtilsController.$inject = ['$scope', 'PolicyFactory'];
@@ -30,5 +31,9 @@
     PolicyFactory.get(function(data){
       $scope.policy = data.results[0];
     });
+  }
+
+  function PolicyDetailController($scope){
+
   }
 })();

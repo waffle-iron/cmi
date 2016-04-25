@@ -6,8 +6,10 @@
   'use strict';
 
   angular.module('cmiApp', [
+      'ngRoute',
       'ngResource',
-      'core.controllers'
+      'core.controllers',
+      'core.routers'
     ])
     .config(function ($interpolateProvider) {
       $interpolateProvider.startSymbol('{$');
