@@ -12,7 +12,10 @@
 
   function CMIUtilsController($scope, PolicyFactory) {
     $scope.date = new Date();
-    $scope.politicas = PolicyFactory.get();
+    // $scope.politicas = PolicyFactory.get-();
+    PolicyFactory.get(function (data) {
+      $scope.politicas = data.results;
+    })
   }
 
   function PolicyFactory($resource) {

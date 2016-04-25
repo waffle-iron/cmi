@@ -59,6 +59,18 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-sm-12">
+      <ul id="politicas" ng-controller="CMIUtilsController">
+        <li ng-repeat="p in politicas | orderBy: revision">
+          <a href="#/politicas/{$ p.revision $}">
+            Revisión: {$ p.revision $}</a>
+            (Aprobación: {$ p.fecha | date: "MMMM dd, yyyy" $})
+        </li>
+      </ul>
+    </div>
+  </div>
+
   <div class="page-header">
     <h1><i class="fa fa-bullseye"></i> Objetivos de la Calidad</h1>
   </div>
