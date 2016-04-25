@@ -61,11 +61,11 @@
 
   <div class="row">
     <div class="col-sm-12">
-      <ul id="politicas" ng-controller="CMIUtilsController">
-        <li ng-repeat="p in politicas | orderBy: revision">
-          <a href="#/politicas/{$ p.revision $}">
-            Revisión: {$ p.revision $}</a>
-            (Aprobación: {$ p.fecha | date: "MMMM dd, yyyy" $})
+      <ul id="politicas" ng-controller="PolicyListController">
+        <li ng-repeat="policy in policies | orderBy: revision">
+          <a href="#/policy/{$ policy.revision $}">
+            Revisión: {$ policy.revision $}</a>
+            (Aprobación: {$ policy.fecha | date: "MMMM dd, yyyy" $})
         </li>
       </ul>
     </div>

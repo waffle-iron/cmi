@@ -1,9 +1,13 @@
 (function(){
-  angular.module('core.routers', [])
+  angular.module('core.routers', ['ngRoute'])
     .config(['$routeProvider',
       function ($routeProvider) {
         $routeProvider
-          .when('/api/v1.0/politica/:revision/', {
+          .when('policy/', {
+            templateUrl: 'core/partials/policy-list.html',
+            controller: 'PolicyListController'
+          })
+          .when('policy/:revision', {
             templateUrl: 'core/partials/policy-detail.html',
             controller: 'PolicyDetailController'
             })
