@@ -25,7 +25,7 @@
   }
 
   function PolicyListController($scope, PolicyFactory, $sce) {
-    PolicyFactory.query(function(data){
+    PolicyFactory.get(function(data){
       $scope.policies = data.results;
     });
   }
