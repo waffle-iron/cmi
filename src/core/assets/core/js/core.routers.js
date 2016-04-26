@@ -12,6 +12,10 @@
         templateUrl: 'static/core/pages/home.html',
         controller : 'PortadaController'
         })
+      .when('/policies', {
+        templateUrl : 'static/core/pages/policies.htmlm',
+        controller  : 'PolicyListController'
+        })
       .when('/acerca', {
         templateUrl : 'static/core/pages/acerca.html',
         controller  : 'AboutController'
