@@ -14,7 +14,7 @@
   PolicyListController.$inject = ['$scope', 'PolicyFactory'];
   PolicyDetailController.$inject = ['$scope', '$routeParams'];
 
-  function CMIUtilsController($scope, PolicyFactory) {
+  function CMIUtilsController($scope) {
     $scope.date = new Date();
   }
 
