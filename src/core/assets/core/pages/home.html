@@ -11,13 +11,16 @@
             <i class="fa fa-shield"></i>
             Política de la Calidad
             <small>Revisión: {$ policy.revision $} ({$ policy.fecha | date: "MMMM dd, yyyy" $})</small>
+            <span class="pull-right">
+              <a href="#/policies" data-toggle="tooltip" data-placement="left" title="Consulta el histórico de políticas">
+                <i class="fa fa-history text-danger"></i>
+              </a>
+            </span>
           </h1>
         </div>
         <div class="well well-lg">
           <p class="lead">
             <span ng-bind-html="policy.politica"></span>
-            <br>
-            <a class="btn btn-raised btn-danger" href="/#/policies">Histórico</a>
           </p>
         </div>
       </div>
@@ -219,6 +222,7 @@
         }, 800);
       }
     });
+    $('[data-toggle="tooltip"]').tooltip();
   });
 </script>
 
