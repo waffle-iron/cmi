@@ -12,13 +12,9 @@
         templateUrl: 'static/core/pages/home.html',
         controller : 'PortadaController'
         })
-      .when('/acerca', {
-        templateUrl : 'static/core/pages/acerca.html',
-        controller  : 'AboutController'
-        })
-      .when('/contacto', {
-        templateUrl: 'static/core/pages/contacto.html',
-        controller : 'ContactController'
+      .when('/policies', {
+        templateUrl : 'static/core/pages/policies.html',
+        controller  : 'PolicyListController'
         })
       .otherwise({
         redirectTo : '/'

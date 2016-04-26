@@ -8,7 +8,7 @@
 
   PolicyFactory.$inject = ['$resource'];
   PortadaController.$inject = ['$scope', 'PolicyFactory', '$sce'];
-  PolicyListController.$inject = ['$scope', 'PolicyFactory'];
+  PolicyListController.$inject = ['$scope', 'PolicyFactory', "$sce"];
 
   function PolicyFactory($resource) {
     return $resource(
@@ -24,8 +24,8 @@
     });
   }
 
-  function PolicyListController($scope, PolicyFactory) {
-    PolicyFactory.query(function(data){
+  function PolicyListController($scope, PolicyFactory, $sce) {
+    PolicyFactory.get(function(data){
       $scope.policies = data.results;
     });
   }

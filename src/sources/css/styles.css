@@ -1235,3 +1235,9 @@
 .material-card.Blue-Grey.mc-active .mc-btn-action {
     border-color: #eceff1;
 }
+
+.share-wrapper {
+    position: fixed;
+    bottom: 30px;
+    margin-left: -15px;
+}
