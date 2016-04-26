@@ -13,7 +13,7 @@
         controller : 'PortadaController'
         })
       .when('/policies', {
-        templateUrl : 'static/core/pages/policies.htmlm',
+        templateUrl : 'static/core/pages/policies.html',
         controller  : 'PolicyListController'
         })
       .when('/acerca', {
