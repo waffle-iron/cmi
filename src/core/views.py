@@ -13,11 +13,11 @@ from django.views.generic.base import TemplateView
 
 from rest_framework import permissions, status, views, viewsets
 from rest_framework.decorators import api_view
+from rest_framework.permissions import DjangoModelPermissions
 from rest_framework.response import Response
-from rest_framework_nested import routers
 
 from .models import Pipol, Politica
-from .permissions import IsPipolOwner
+from .permissions import IsPipolOwner, IsOwnerOrReadOnly
 from .serializers import PipolSerializer, PoliticaSerializer, UserSerializer
 
 
@@ -91,3 +91,4 @@ class PoliticaActual(viewsets.ViewSetMixin, views.APIView):
 class PoliticaViewSet(viewsets.ModelViewSet):
     queryset = Politica.objects.all()
     serializer_class = PoliticaSerializer
+    permission_classes = (IsOwnerOrReadOnly, )
