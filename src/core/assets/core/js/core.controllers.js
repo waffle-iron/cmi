@@ -3,10 +3,12 @@
   
   angular.module('core.controllers', [])
     .factory("PolicyFactory", PolicyFactory)
-    .controller('PortadaController', PortadaController);
+    .controller('PortadaController', PortadaController)
+    .controller('PolicyListController', PolicyListController);
 
   PolicyFactory.$inject = ['$resource'];
-  PortadaController.$inject = ['$scope', 'PolicyFactory'];
+  PortadaController.$inject = ['$scope', 'PolicyFactory', '$sce'];
+  PolicyListController.$inject = ['$scope', 'PolicyFactory'];
 
   function PolicyFactory($resource) {
     return $resource(
@@ -16,9 +18,15 @@
     );
   }
 
-  function PortadaController($scope, PolicyFactory) {
+  function PortadaController($scope, PolicyFactory, $sce) {
     PolicyFactory.get(function(data){
       $scope.policy = data.results[0];
+    });
+  }
+
+  function PolicyListController($scope, PolicyFactory) {
+    PolicyFactory.query(function(data){
+      $scope.policies = data.results;
     });
   }
 
