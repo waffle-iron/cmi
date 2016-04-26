@@ -16,14 +16,6 @@
         templateUrl : 'static/core/pages/policies.html',
         controller  : 'PolicyListController'
         })
-      .when('/acerca', {
-        templateUrl : 'static/core/pages/acerca.html',
-        controller  : 'AboutController'
-        })
-      .when('/contacto', {
-        templateUrl: 'static/core/pages/contacto.html',
-        controller : 'ContactController'
-        })
       .otherwise({
         redirectTo : '/'
         });
