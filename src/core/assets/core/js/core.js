@@ -2,6 +2,7 @@
 var cmiCore = angular.module('cmiCore', [
   'ngRoute',
   'ngResource',
+  'ngSanitize',
   'core.config',
   'core.routers',
   'core.controllers'
