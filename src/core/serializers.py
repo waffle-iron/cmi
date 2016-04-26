@@ -66,6 +66,7 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class PoliticaSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Politica
         fields = ('revision', 'fecha', 'politica')

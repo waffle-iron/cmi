@@ -2,17 +2,20 @@
   "use strict";
 
   angular.module('core.controllers', [])
-    .controller('CMIUtils', CMIUtils)
+    .controller('CMIUtilsController', CMIUtilsController)
     .controller('PolicyController', PolicyController)
+    .controller('PolicyListController', PolicyListController)
+    .controller('PolicyDetailController', PolicyDetailController)
     .factory("PolicyFactory", PolicyFactory);
 
-  CMIUtils.$inject = ['$scope', 'PolicyFactory'];
+  CMIUtilsController.$inject = ['$scope', 'PolicyFactory'];
   PolicyController.$inject = ['$scope', 'PolicyFactory'];
   PolicyFactory.$inject = ['$resource'];
+  PolicyListController.$inject = ['$scope', 'PolicyFactory'];
+  PolicyDetailController.$inject = ['$scope', '$routeParams'];
 
-  function CMIUtils($scope, PolicyFactory) {
+  function CMIUtilsController($scope) {
     $scope.date = new Date();
-    $scope.politicas = PolicyFactory.get();
   }
 
   function PolicyFactory($resource) {
@@ -27,5 +30,15 @@
     PolicyFactory.get(function(data){
       $scope.policy = data.results[0];
     });
+  }
+
+  function PolicyListController($scope, PolicyFactory) {
+    PolicyFactory.get(function(data){
+      $scope.policies = data.results;
+    })
+  }
+
+  function PolicyDetailController($scope, $routeParams){
+    $scope.policy_revision = $routeParams.revision;
   }
 })();

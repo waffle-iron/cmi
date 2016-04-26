@@ -62,7 +62,7 @@ class PipolViewSet(viewsets.ModelViewSet):
 
 
 class Index(TemplateView):
-    template_name = 'core/index.html'
+    template_name = 'core/rutas.html'
 
     @method_decorator(ensure_csrf_cookie)
     def dispatch(self, *args, **kwargs):
