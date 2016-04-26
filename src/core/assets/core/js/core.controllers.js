@@ -7,7 +7,7 @@
     .controller('PolicyListController', PolicyListController);
 
   PolicyFactory.$inject = ['$resource'];
-  PortadaController.$inject = ['$scope', 'PolicyFactory'];
+  PortadaController.$inject = ['$scope', 'PolicyFactory', 'ngSanitize'];
   PolicyListController.$inject = ['$scope', 'PolicyFactory'];
 
   function PolicyFactory($resource) {
