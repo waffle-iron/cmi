@@ -6,6 +6,9 @@
 #  __author__: toledano
 #       fecha: oct 24, 2015
 
+import json
+
+from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -28,6 +31,30 @@ class UserViewSets(viewsets.ModelViewSet):
     """
     queryset = Pipol.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
+
+
+class LoginView(views.APIView):
+    def post(self, request, format=None):
+        data = json.loads(request.body)
+        email = data.get('email', None)
+        password = data.get('password', None)
+        account = authenticate(email=email, password=password)
+
+        if account is not None:
+            if account.is_active:
+                login(request, account)
+                serialized = PipolSerializer(account)
+                return Response(serialized.data)
+            else:
+                return Response({
+                    'status': 'Unauthorized',
+                    'message': 'This account has been disabled.'
+                }, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            return Response({
+                'satus': 'Unauthorized',
+                'message': 'Username/password combination invalid.'
+            }, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class PipolViewSet(viewsets.ModelViewSet):
