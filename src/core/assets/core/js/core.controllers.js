@@ -3,12 +3,16 @@
   
   angular.module('core.controllers', [])
     .factory("PolicyFactory", PolicyFactory)
+    .factory("AuthenticationFactory", AuthenticationFactory)
     .controller('PortadaController', PortadaController)
-    .controller('PolicyListController', PolicyListController);
+    .controller('PolicyListController', PolicyListController)
+    .controller('RegisterController', RegisterController);
 
   PolicyFactory.$inject = ['$resource'];
+  AuthenticationFactory.$inject = ['$cookies', '$http'];
   PortadaController.$inject = ['$scope', 'PolicyFactory', '$sce'];
   PolicyListController.$inject = ['$scope', 'PolicyFactory', "$sce"];
+  RegisterController.$inject = ['$location', '$scope', 'AuthenticationFactory'];
 
   function PolicyFactory($resource) {
     return $resource(
@@ -16,6 +20,20 @@
       {},
       { 'get': {method: "GET", isArray: false}}
     );
+  }
+
+  function AuthenticationFactory($cookies, $http) {
+    var Authentication = {
+      register: register
+    };
+    return Authentication;
+    function register(email, password, username) {
+      return $http.post('/api/v1.0/users/', {
+        username: username,
+        password: password,
+        email   : email
+      });
+    }
   }
 
   function PortadaController($scope, PolicyFactory, $sce) {
@@ -28,6 +46,14 @@
     PolicyFactory.get(function(data){
       $scope.policies = data.results;
     });
+  }
+  
+  function RegisterController($location, $scope, AuthenticationFactory){
+    var vm = this;
+    vm.register = register;
+    function register() {
+      Authentication.register(vm.email, vm.password, vm.username);
+    }
   }
 
 

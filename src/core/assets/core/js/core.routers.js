@@ -1,5 +1,5 @@
 (function(){
-  "use strinct";
+  "use strict";
 
   angular.module('core.routers', ['ngRoute'])
     .config(rutasCore);
@@ -12,6 +12,11 @@
         templateUrl: 'static/core/pages/home.html',
         controller : 'PortadaController'
         })
+      .when('/register', {
+        templateUrl : 'static/core/pages/register.html',
+        controller  : 'RegisterController',
+        controllerAs: 'vm'
+      })
       .when('/policies', {
         templateUrl : 'static/core/pages/policies.html',
         controller  : 'PolicyListController'
