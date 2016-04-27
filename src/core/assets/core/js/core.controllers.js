@@ -24,6 +24,7 @@
 
   function AuthenticationFactory($cookies, $http) {
     var Authentication = {
+      login: login,
       register: register
     };
     return Authentication;
@@ -33,6 +34,12 @@
         password: password,
         email   : email
       });
+    }
+    function login(email, password){
+      return $http.post('/api/v1.0/login/', {
+        email   : email,
+        password: password
+      })
     }
   }
 
