@@ -16,7 +16,12 @@
         templateUrl : 'static/core/pages/register.html',
         controller  : 'RegisterController',
         controllerAs: 'vm'
-      })
+        })
+      .when('/login', {
+        templateUrl: 'static/core/pages/login.html',
+        controller: 'LoginController',
+        controllerAs: 'vm'
+        })
       .when('/policies', {
         templateUrl : 'static/core/pages/policies.html',
         controller  : 'PolicyListController'
