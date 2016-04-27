@@ -28,7 +28,7 @@
     };
     return Authentication;
     function register(email, password, username) {
-      return $http.post('/api/v1.0/users/', {
+      return $http.post('/api/v1.0/pipols/', {
         username: username,
         password: password,
         email   : email
