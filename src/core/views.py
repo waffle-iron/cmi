@@ -34,10 +34,10 @@ class UserViewSets(viewsets.ModelViewSet):
 
 
 class LoginView(views.APIView):
-    # permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.AllowAny, )
 
     def post(self, request, format=None):
-        data = json.loads(request.body)
+        data = request.data
         email = data.get('email', None)
         password = data.get('password', None)
         account = authenticate(email=email, password=password)

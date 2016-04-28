@@ -2,25 +2,15 @@
   "use strict";
   
   angular.module('core.controllers', [])
-    .factory("PolicyFactory", PolicyFactory)
     .controller('PortadaController', PortadaController)
     .controller('PolicyListController', PolicyListController)
     .controller('RegisterController', RegisterController)
     .controller('LoginController', LoginController);
-
-  PolicyFactory.$inject = ['$resource'];
+  
   PortadaController.$inject = ['$scope', 'PolicyFactory', '$sce'];
   PolicyListController.$inject = ['$scope', 'PolicyFactory', "$sce"];
   RegisterController.$inject = ['$location', '$scope', 'Authentication'];
   LoginController.$inject = ['$location', '$scope', 'Authentication'];
-
-  function PolicyFactory($resource) {
-    return $resource(
-      "/api/v1.0/politica/",
-      {},
-      { 'get': {method: "GET", isArray: false}}
-    );
-  }
 
   function PortadaController($scope, PolicyFactory, $sce) {
     PolicyFactory.get(function(data){

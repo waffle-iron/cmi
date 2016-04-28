@@ -6,9 +6,19 @@
   'use strict';
 
   angular.module('core.services', [])
+    .factory("PolicyFactory", PolicyFactory)
     .factory('Authentication', Authentication);
 
+  PolicyFactory.$inject = ['$resource'];
   Authentication.$inject = ['$cookies', '$http'];
+
+  function PolicyFactory($resource) {
+    return $resource(
+      "/api/v1.0/politica/",
+      {},
+      { 'get': {method: "GET", isArray: false}}
+    );
+  }
 
   /**
   * @namespace Authentication
