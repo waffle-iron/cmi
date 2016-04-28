@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/SGC-Tlaxcala/cmi.png?label=ready&title=Ready)](https://waffle.io/SGC-Tlaxcala/cmi)
 # Cuadro de Mando Integral 2.0
 
 El nuevo Cuadro de Mando Integral busca
