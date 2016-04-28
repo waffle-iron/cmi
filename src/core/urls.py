@@ -20,7 +20,9 @@ router.register(r'v1.0/actual', PoliticaActual, base_name='actual')
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(
+        r'^api-auth/',
+        include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/v1.0/login/$', LoginView.as_view(), name='login'),
     url(r'^api/v1.0/actual/', actual, name='actual'),
     url(r'^api/', include(router.urls)),

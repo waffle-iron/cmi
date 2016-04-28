@@ -7,5 +7,6 @@ var cmiCore = angular.module('cmiCore', [
   'core.config',
   'core.routers',
   'core.controllers',
+  'core.services'
 ]);
 

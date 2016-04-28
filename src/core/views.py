@@ -34,6 +34,8 @@ class UserViewSets(viewsets.ModelViewSet):
 
 
 class LoginView(views.APIView):
+    # permission_classes = (permissions.AllowAny, )
+
     def post(self, request, format=None):
         data = json.loads(request.body)
         email = data.get('email', None)
@@ -84,7 +86,7 @@ class PipolViewSet(viewsets.ModelViewSet):
 
         return Response({
             'status': 'Bad request',
-            'message': 'No es posible crear al usuario con los datos recibidos.'
+            'message': 'No es posible crear al usuario con los datos recibidos'
         }, status=status.HTTP_400_BAD_REQUEST)
 
 
